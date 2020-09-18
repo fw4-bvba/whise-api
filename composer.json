@@ -1,0 +1,29 @@
+{
+    "name": "fw4/whise-api",
+    "type": "library",
+    "description": "PHP library for implementing the Whise API",
+    "keywords": ["whise", "api", "sdk"],
+    "license": "MIT",
+    "require": {
+        "php": "^7.1",
+        "guzzlehttp/guzzle": "~6.0",
+        "ocramius/package-versions": "^1.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.4"
+    },
+    "autoload": {
+        "psr-4": { "Whise\\Api\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Whise\\Api\\Tests\\": "tests/"}
+    },
+    "scripts": {
+        "test": "@php ./vendor/bin/phpunit --colors",
+        "test-coverage": "@php ./vendor/bin/phpunit --colors --coverage-html ./coverage",
+		"phpinfo": "@php -i"
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}
