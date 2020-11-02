@@ -19,9 +19,12 @@ class CollectionRequest extends Request
     public function setBody($body): Request
     {
         if (is_array($body)) {
-            $body['Limit'] = self::LIMIT;
-            if (!isset($body['Offset'])) {
-                $body['Offset'] = 0;
+            if (!isset($body['Page'])) {
+                $body['Page'] = [];
+            }
+            $body['Page']['Limit'] = self::LIMIT;
+            if (!isset($body['Page']['Offset'])) {
+                $body['Page']['Offset'] = 0;
             }
         }
         return parent::setBody($body);
@@ -37,7 +40,10 @@ class CollectionRequest extends Request
     public function setPage(int $page): self
     {
         if (is_array($this->body)) {
-            $this->body['Offset'] = $page * self::LIMIT;
+            if (!isset($this->body['Page'])) {
+                $this->body['Page'] = [];
+            }
+            $this->body['Page']['Offset'] = $page * self::LIMIT;
         }
         return $this;
     }

@@ -22,8 +22,10 @@ class CollectionRequestTest extends TestCase
         $body = json_decode($request->getBody(), true);
         
         $this->assertEquals([
-            'Limit' => $request->getPageSize(),
-            'Offset' => $request->getPageSize(),
+            'Page' => [
+                'Limit' => $request->getPageSize(),
+                'Offset' => $request->getPageSize(),
+            ],
         ], $body);
     }
 }
