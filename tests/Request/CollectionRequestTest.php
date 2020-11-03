@@ -11,6 +11,7 @@ namespace Whise\Api\Tests\Request;
 
 use PHPUnit\Framework\TestCase;
 use Whise\Api\Request\CollectionRequest;
+use InvalidArgumentException;
 
 class CollectionRequestTest extends TestCase
 {
@@ -18,14 +19,30 @@ class CollectionRequestTest extends TestCase
     {
         $request = new CollectionRequest('POST', '', []);
         $request->setPage(1);
-        
+
         $body = json_decode($request->getBody(), true);
-        
+
         $this->assertEquals([
             'Page' => [
                 'Limit' => $request->getPageSize(),
                 'Offset' => $request->getPageSize(),
             ],
         ], $body);
+    }
+
+    public function testSetPageInvalid(): void
+    {
+        $request = new CollectionRequest('POST', '', []);
+
+        $this->expectException(InvalidArgumentException::class);
+        $request->setPage(-1);
+    }
+
+    public function testSetPageSizeInvalid(): void
+    {
+        $request = new CollectionRequest('POST', '', []);
+
+        $this->expectException(InvalidArgumentException::class);
+        $request->setPageSize(0);
     }
 }

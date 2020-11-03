@@ -19,31 +19,34 @@ final class WhiseApi
 {
     /** @var ApiAdapterInterface */
     private $apiAdapter;
-    
+
     /** @var Endpoints\Admin */
     protected $adminEndpoint;
-    
+
     /** @var Endpoints\Estates */
     protected $estatesEndpoint;
-    
+
     /** @var Endpoints\Contacts */
     protected $contactsEndpoint;
-    
+
     /** @var Endpoints\Calendars */
     protected $calendarsEndpoint;
-    
+
     /** @var Endpoints\Activities */
     protected $activitiesEndpoint;
-    
+
+    /** @var int */
+    protected static $defaultPageSize = 50;
+
     public function __construct($access_token = null)
     {
         if (!is_null($access_token)) {
             $this->setAccessToken($access_token);
         }
     }
-    
+
     // Endpoints
-    
+
     /**
      * Request a new access token using user credentials.
      *
@@ -56,7 +59,7 @@ final class WhiseApi
         $request = new Request('POST', 'token', $parameters);
         return new Response($this->getApiAdapter()->request($request));
     }
-    
+
     /**
      * Access endpoints related to general settings.
      *
@@ -69,7 +72,7 @@ final class WhiseApi
         }
         return $this->adminEndpoint;
     }
-    
+
     /**
      * Access endpoints related to clients.
      *
@@ -79,7 +82,7 @@ final class WhiseApi
     {
         return $this->admin()->clients();
     }
-    
+
     /**
      * Access endpoints related to offices.
      *
@@ -89,7 +92,7 @@ final class WhiseApi
     {
         return $this->admin()->offices();
     }
-    
+
     /**
      * Access endpoints related to real estate properties and projects.
      *
@@ -102,7 +105,7 @@ final class WhiseApi
         }
         return $this->estatesEndpoint;
     }
-    
+
     /**
      * Access endpoints related to contacts.
      *
@@ -115,7 +118,7 @@ final class WhiseApi
         }
         return $this->contactsEndpoint;
     }
-    
+
     /**
      * Access endpoints related to calendar events.
      *
@@ -128,7 +131,7 @@ final class WhiseApi
         }
         return $this->calendarsEndpoint;
     }
-    
+
     /**
      * Access endpoints related to history logs.
      *
@@ -141,9 +144,9 @@ final class WhiseApi
         }
         return $this->activitiesEndpoint;
     }
-    
+
     // Access token
-    
+
     /**
      * Use a previously requested access token.
      *
@@ -162,7 +165,7 @@ final class WhiseApi
         $this->getApiAdapter()->setAccessToken($access_token);
         return $this;
     }
-    
+
     /**
      * Get the current access token.
      *
@@ -172,7 +175,7 @@ final class WhiseApi
     {
         return $this->getApiAdapter()->getAccessToken();
     }
-    
+
     /**
      * Request a new access token using user credentials.
      *
@@ -188,7 +191,7 @@ final class WhiseApi
             'Password' => $password,
         ]);
     }
-    
+
     /**
     * Request a new access token using client ID.
     *
@@ -204,7 +207,7 @@ final class WhiseApi
             'OfficeId' => $officeId,
         ]);
     }
-    
+
     // Api adapter
 
     public function setApiAdapter(ApiAdapterInterface $adapter): self
@@ -220,7 +223,7 @@ final class WhiseApi
         }
         return $this->apiAdapter;
     }
-    
+
     /**
      * Set a callback for debugging API requests and responses.
      *
@@ -234,5 +237,25 @@ final class WhiseApi
     {
         $this->getApiAdapter()->debugResponses($callable);
         return $this;
+    }
+
+    /**
+     * Set the page size to be used by automatic pagination.
+     *
+     * @param int $page_size
+     */
+    public static function setDefaultPageSize(int $page_size): void
+    {
+        self::$defaultPageSize = $page_size;
+    }
+
+    /**
+     * Get the page size that is used by automatic pagination.
+     *
+     * @return int
+     */
+    public static function getDefaultPageSize(): int
+    {
+        return self::$defaultPageSize;
     }
 }

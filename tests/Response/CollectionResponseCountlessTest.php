@@ -18,63 +18,60 @@ class CollectionResponseCountlessTest extends ApiTestCase
 {
     static protected $request;
     static protected $pageSize;
-    
+
     static public function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        
+
         self::$request = new CollectionRequest('POST', '');
         self::$request->setResponseKey('data');
         self::$pageSize = self::$request->getPageSize();
     }
-    
+
     public function testOffsetExists(): void
     {
         $this->queueFillerPages(self::$pageSize * 2);
-        
-        $buffer = new CollectionResponseCountless(self::$request, self::$adapter);
-        
-        $this->assertTrue($buffer->offsetExists(self::$pageSize * 2 - 1));
-        $this->assertFalse($buffer->offsetExists(self::$pageSize * 2));
+
+        $response = new CollectionResponseCountless(self::$request, self::$adapter);
+
+        $this->assertTrue($response->offsetExists(0));
+        $this->assertTrue($response->offsetExists(self::$pageSize * 2 - 1));
+        $this->assertFalse($response->offsetExists(self::$pageSize * 2));
     }
-    
+
     public function testOffsetExistsInvalid(): void
     {
         $this->queueFillerPages(1);
-        
+
         $buffer = new CollectionResponseCountless(self::$request, self::$adapter);
-        
+
         $this->assertFalse($buffer->offsetExists('invalid'));
     }
-    
-    public function testBufferUpperBound(): void
+
+    public function testUpperBound(): void
     {
         $this->queuePageResponse(range(1, self::$pageSize));
-        $buffer = new CollectionResponseBufferCountless(self::$request, self::$adapter);
-        
-        $buffer->bufferPage(0);
-        $this->assertFalse($buffer->hasReachedEnd());
-        
+        $response = new CollectionResponseCountless(self::$request, self::$adapter);
+
+        $this->assertTrue($response->offsetExists(0));
+
         $this->queuePageResponse([]);
-        $buffer->bufferPage(3);
-        $this->assertFalse($buffer->hasReachedEnd());
-        
+        $this->assertFalse($response->offsetExists(self::$pageSize * 3));
+
         $this->queuePageResponse([]);
-        $buffer->bufferPage(2);
-        $this->assertFalse($buffer->hasReachedEnd());
-        
+        $this->assertFalse($response->offsetExists(self::$pageSize * 2));
+
         $this->queuePageResponse(range(1, self::$pageSize));
-        $buffer->bufferPage(1);
-        $this->assertTrue($buffer->hasReachedEnd());
+        $this->assertTrue($response->offsetExists(self::$pageSize));
     }
-    
+
     protected function queuePageResponse($data): void
     {
         $this->queueResponse([
             'data' => $data,
         ]);
     }
-    
+
     protected function queueFillerPages(int $total_count): void
     {
         $pages = ceil($total_count / self::$pageSize);

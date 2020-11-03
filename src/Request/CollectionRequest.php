@@ -9,27 +9,32 @@
 
 namespace Whise\Api\Request;
 
+use Whise\Api\WhiseApi;
+use InvalidArgumentException;
+
 class CollectionRequest extends Request
 {
-    protected const LIMIT = 50;
-    
+    /** @var int */
+    protected $page;
+
+    /** @var int */
+    protected $pageSize;
+
     /**
      * {@inheritdoc}
      */
-    public function setBody($body): Request
+    public function getBody(): ?string
     {
-        if (is_array($body)) {
-            if (!isset($body['Page'])) {
-                $body['Page'] = [];
+        if (is_array($this->body)) {
+            if (!isset($this->body['Page'])) {
+                $this->body['Page'] = [];
             }
-            $body['Page']['Limit'] = self::LIMIT;
-            if (!isset($body['Page']['Offset'])) {
-                $body['Page']['Offset'] = 0;
-            }
+            $this->body['Page']['Limit'] = $this->getPageSize();
+            $this->body['Page']['Offset'] = $this->getPageSize() * $this->getPage();
         }
-        return parent::setBody($body);
+        return parent::getBody();
     }
-    
+
     /**
      * Set the page to be retrieved, starting at 0.
      *
@@ -39,15 +44,39 @@ class CollectionRequest extends Request
      */
     public function setPage(int $page): self
     {
-        if (is_array($this->body)) {
-            if (!isset($this->body['Page'])) {
-                $this->body['Page'] = [];
-            }
-            $this->body['Page']['Offset'] = $page * self::LIMIT;
+        if ($page < 0) {
+            throw new InvalidArgumentException('Page index must be 0 or greater');
         }
+        $this->page = $page;
         return $this;
     }
-    
+
+    /**
+     * Set the amount of items to be retrieved per page.
+     *
+     * @param int $page_size
+     *
+     * @return self
+     */
+    public function setPageSize(int $page_size): self
+    {
+        if ($page_size <= 0) {
+            throw new InvalidArgumentException('Page size must greater than 0');
+        }
+        $this->pageSize = $page_size;
+        return $this;
+    }
+
+    /**
+     * Get the page to be retrieved, starting at 0.
+     *
+     * @return int
+     */
+    public function getPage(): int
+    {
+        return $this->page ?? 0;
+    }
+
     /**
      * Get the amount of items to be retrieved per page.
      *
@@ -55,6 +84,6 @@ class CollectionRequest extends Request
      */
     public function getPageSize(): int
     {
-        return self::LIMIT;
+        return $this->pageSize ?? WhiseApi::getDefaultPageSize();
     }
 }

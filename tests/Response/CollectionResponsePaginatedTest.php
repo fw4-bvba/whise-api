@@ -18,85 +18,35 @@ class CollectionResponsePaginatedTest extends ApiTestCase
 {
     static protected $request;
     static protected $pageSize;
-    
+
     static public function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        
+
         self::$request = new CollectionRequest('POST', '');
         self::$request->setResponseKey('data');
         self::$pageSize = self::$request->getPageSize();
     }
-    
+
     public function testGet(): void
     {
         $this->queuePageResponse([1, 2, 3]);
-        
+
         $response = new CollectionResponsePaginated(self::$request, self::$adapter);
-        
+
         $this->assertEquals(3, $response->get(2));
     }
-    
-    public function testGetPageSize(): void
+
+    public function testGetMultiple(): void
     {
-        $this->queuePageResponse([1, 2, 3]);
-        
+        $this->queueFillerPages(self::$pageSize * 2);
+
         $response = new CollectionResponsePaginated(self::$request, self::$adapter);
-        
-        $this->assertEquals($response->getPageSize(), self::$pageSize);
+
+        $this->assertEquals(1, $response->get(0));
+        $this->assertEquals(1, $response->get(self::$pageSize));
     }
-    
-    public function testGetPageCount(): void
-    {
-        $this->queueFillerPages(self::$pageSize * 2);
-        
-        $response = new CollectionResponsePaginated(self::$request, self::$adapter);
-        
-        $this->assertEquals(2, $response->getPageCount());
-    }
-    
-    public function testBufferGetBuffer(): void
-    {
-        $this->queueFillerPages(self::$pageSize * 2);
-        
-        $buffer = new CollectionResponseBuffer(self::$request, self::$adapter);
-        
-        $this->assertCount(self::$pageSize, $buffer->getBuffer());
-    }
-    
-    public function testBufferGet(): void
-    {
-        $this->queueFillerPages(self::$pageSize * 2);
-        
-        $buffer = new CollectionResponseBuffer(self::$request, self::$adapter);
-        
-        $this->assertEquals(1, $buffer->get(0));
-        $this->assertEquals(1, $buffer->get(self::$pageSize));
-    }
-    
-    public function testBufferOffsetExists(): void
-    {
-        $this->queuePageResponse([1, 2, 3]);
-        
-        $buffer = new CollectionResponseBuffer(self::$request, self::$adapter);
-        
-        $this->assertTrue($buffer->offsetExists(2));
-        $this->assertFalse($buffer->offsetExists(3));
-    }
-    
-    public function testBufferGetPage(): void
-    {
-        $this->queueFillerPages(self::$pageSize * 2);
-        
-        $buffer = new CollectionResponseBuffer(self::$request, self::$adapter);
-        
-        $buffer->bufferPage(0);
-        $this->assertEquals(0, $buffer->getBufferedPage());
-        
-        $buffer->bufferPage(1);
-        $this->assertEquals(1, $buffer->getBufferedPage());
-    }
-    
+
     protected function queuePageResponse($data, ?int $count = null): void
     {
         $this->queueResponse([
@@ -104,7 +54,7 @@ class CollectionResponsePaginatedTest extends ApiTestCase
             'totalCount' => $count ?? count($data),
         ]);
     }
-    
+
     protected function queueFillerPages(int $total_count): void
     {
         $pages = ceil($total_count / self::$pageSize);

@@ -20,7 +20,7 @@ class EndpointTest extends ApiTestCase
             $request = json_decode($request, true);
             $this->assertEquals('bar', $request['Filter']['foo'] ?? null);
         });
-        
+
         $this->queueResponse('{
             "calendars": [],
             "totalCount": 0
@@ -28,16 +28,16 @@ class EndpointTest extends ApiTestCase
         $endpoint = new Calendars(self::$api);
         $endpoint->list([
             'foo' => 'bar'
-        ]);
+        ])->offsetExists(0);
     }
-    
+
     public function testRawFilterParameters(): void
     {
         self::$api->debugResponses(function($response, $endpoint, $request) {
             $request = json_decode($request, true);
             $this->assertEquals('bar', $request['Filter']['foo'] ?? null);
         });
-        
+
         $this->queueResponse('{
             "calendars": [],
             "totalCount": 0
@@ -47,21 +47,21 @@ class EndpointTest extends ApiTestCase
             'Filter' => [
                 'foo' => 'bar'
             ]
-        ]);
+        ])->offsetExists(0);
     }
-    
+
     public function testAggregateFilterParameters(): void
     {
         self::$api->debugResponses(function($response, $endpoint, $request) {
             $request = json_decode($request, true);
             $this->assertEquals(['foo'], $request['Aggregate']['Fields'] ?? null);
         });
-        
+
         $this->queueResponse('{
             "calendars": [],
             "totalCount": 0
         }');
         $endpoint = new Calendars(self::$api);
-        $endpoint->list(null, null, null, ['foo']);
+        $endpoint->list(null, null, null, ['foo'])->offsetExists(0);
     }
 }

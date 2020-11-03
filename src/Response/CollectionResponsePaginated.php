@@ -9,65 +9,112 @@
 
 namespace Whise\Api\Response;
 
-use Whise\Api\Request\Request;
 use Whise\Api\Request\CollectionRequest;
 use Whise\Api\ApiAdapter\ApiAdapterInterface;
+use Whise\Api\WhiseApi;
 
 class CollectionResponsePaginated extends CollectionResponse
 {
-    /** @var CollectionResponseBuffer */
-    protected $buffer;
+    /** @var CollectionRequest */
+    protected $request;
+
+    /** @var ApiAdapterInterface */
+    protected $apiAdapter;
+
+    /** @var CollectionResponsePage */
+    protected $pageBuffer;
 
     public function __construct(CollectionRequest $request, ApiAdapterInterface $api_adapter)
     {
-        $this->buffer = new CollectionResponseBuffer($request, $api_adapter);
+        $this->request = $request;
+        $this->apiAdapter = $api_adapter;
     }
 
     /**
-     * {@inheritdoc}
+     * Get the items from a single page.
+     *
+     * @param int $page Index of the page to fetch, starting at 0
+     * @param int $page_size Amount of items to retrieve per page
+     *
+     * @return CollectionResponsePage
+     */
+    public function page(int $page, int $page_size): CollectionResponsePage
+    {
+        return new CollectionResponsePage($this->apiAdapter->request(
+            $this->request->setPage($page)->setPageSize($page_size)
+        ), $page, $page_size);
+    }
+
+    /**
+     * Get the item at a specific index.
+     *
+     * @param int $position
+     *
+     * @return mixed
      */
     public function get(int $position)
     {
-        return $this->buffer->get($position);
+        if (!$this->isBuffered($position)) {
+            $this->bufferPosition($position);
+        }
+        return $this->pageBuffer->get($position % WhiseApi::getDefaultPageSize());
     }
-    
+
     /**
-     * Get the amount of items contained per page.
+     * Check whether the item at a specific position is contained within the
+     * current buffer.
      *
-     * @return int
+     * @param int $position
+     *
+     * @return bool
      */
-    public function getPageSize(): int
+    protected function isBuffered(int $position): bool
     {
-        return $this->buffer->getPageSize();
+        if (is_null($this->pageBuffer)) return false;
+        $first_position = WhiseApi::getDefaultPageSize() * $this->pageBuffer->getPage();
+        return ($position >= $first_position && $position < $first_position + $this->pageBuffer->count());
     }
-    
+
     /**
-     * Get the amount of pages available.
+     * Load the item at a specific index into the buffer.
      *
-     * @return int
+     * @param int $position
      */
-    public function getPageCount(): int
+    protected function bufferPosition(int $position): void
     {
-        return intval(ceil($this->count() / $this->getPageSize()));
+        $this->bufferPage(floor($position / WhiseApi::getDefaultPageSize()));
     }
-    
+
+    /**
+     * Load a specific page into the buffer.
+     *
+     * @param int $page
+     */
+    protected function bufferPage(int $page): void
+    {
+        if (is_null($this->pageBuffer) || $this->pageBuffer->getPage() !== $page) {
+            $this->pageBuffer = $this->page($page, WhiseApi::getDefaultPageSize());
+        }
+    }
+
     /**
      * @codeCoverageIgnore
      */
     public function __debugInfo(): array
     {
-        return [
-            'count' => $this->count(),
-            'pageData' => $this->buffer->getBuffer(),
-            'pageSize' => $this->getPageSize(),
-            'pageCount' => $this->getPageCount(),
-        ];
+        if (is_null($this->pageBuffer)) {
+            $this->bufferPage(0);
+        }
+        return $this->pageBuffer->__debugInfo();
     }
 
     /* Countable implementation */
 
     public function count(): int
     {
-        return $this->buffer->getRowCount();
+        if (is_null($this->pageBuffer)) {
+            $this->bufferPage(0);
+        }
+        return $this->pageBuffer->getTotalCount();
     }
 }
