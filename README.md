@@ -103,6 +103,38 @@ foreach ($estates as $estate) {
 }
 ```
 
+### Manual pagination
+
+For situations where manual pagination is required, a `page` method is provided. Calling this method with both a
+desired page index (starting at 0), and the amount of items to retrieve per page, returns a traversable list of
+objects. This list also provides multiple methods for dealing with paging metadata:
+
+- `getPage()` to retrieve the current page index (starting at 0).
+- `getPageSize()` to retrieve the maximum amount of items per page.
+- `count()` to retrieve the actual amount of items on the current page.
+- `getTotalCount()` to retrieve the total amount of items across all pages. This method is currently not available on
+`activities` endpoints.
+- `getPageCount()` to retrieve the total amount of pages. This method is currently not available on
+`activities` endpoints.
+
+#### Example
+
+```php
+$page_index = 2;
+$items_per_page = 20;
+
+$estates = $api->estates()->list([
+    'CategoryIds' => [1]
+]);
+$page = $estates->page($page_index, $items_per_page);
+
+echo 'Showing ' . $page->count() . ' items out of ' . $page->getTotalCount() . PHP_EOL;
+echo 'Page ' . ($page->getPage() + 1) . ' of ' . $page->getPageCount() . PHP_EOL;
+foreach ($page as $estate) {
+    echo $estate->name . PHP_EOL;
+}
+```
+
 ## License
 
 `fw4/whise-api` is licensed under the MIT License (MIT). Please see [LICENSE](LICENSE) for more information.
