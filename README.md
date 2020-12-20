@@ -17,12 +17,12 @@ $api = new WhiseApi();
 // Retrieve existing access token from storage (getAccessTokenFromDataStore to be implemented)
 $accessToken = getAccessTokenFromDataStore();
 
-if (empty($accessToken)) {
+if (!$accessToken) {
     // Request and store new access token (saveAccessTokenToDataStore to be implemented)
     $accessToken = $api->requestAccessToken('username', 'password');
     saveAccessTokenToDataStore($accessToken);
 } else {
-    $client->setAccessToken($accessToken);
+    $api->setAccessToken($accessToken);
 }
 ```
 
