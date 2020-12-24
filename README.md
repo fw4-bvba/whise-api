@@ -21,9 +21,9 @@ if (!$accessToken) {
     // Request and store new access token (saveAccessTokenToDataStore to be implemented)
     $accessToken = $api->requestAccessToken('username', 'password');
     saveAccessTokenToDataStore($accessToken);
-} else {
-    $api->setAccessToken($accessToken);
 }
+
+$api->setAccessToken($accessToken);
 ```
 
 All endpoints are provided as methods of the WhiseApi class. For more information about available endpoints and
@@ -99,7 +99,7 @@ $estates = $api->estates()->list();
 
 // Traversing over the response takes care of pagination in the background
 foreach ($estates as $estate) {
-	echo $estate->name . PHP_EOL;
+    echo $estate->name . PHP_EOL;
 }
 ```
 
