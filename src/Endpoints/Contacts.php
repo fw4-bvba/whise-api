@@ -20,13 +20,13 @@ final class Contacts extends Endpoint
 {
     /** @var ContactsOrigins */
     protected $originsEndpoint;
-    
+
     /** @var ContactsTitles */
     protected $titlesEndpoint;
-    
+
     /** @var ContactsTypes */
     protected $typesEndpoint;
-    
+
     /**
      * Request a list of contacts.
      *
@@ -53,12 +53,39 @@ final class Contacts extends Endpoint
             'Sort' => $sort,
             'Field' => $field,
         ]);
-        
+
         $request = new CollectionRequest('POST', 'v1/contacts/list', $parameters);
         $request->setResponseKey('contacts')->requireAuthentication(true);
         return new CollectionResponsePaginated($request, $this->getApiAdapter());
     }
-    
+
+    /**
+     * Request a single contact.
+     *
+     * @param int $id
+     * @param array $filter Associative array containing filter parameters
+     * @param array $field Associative array containing parameters relating to
+     * which fields to include or exclude
+     *
+     * @throws Exception\AuthException if access is denied
+     * @throws Exception\AuthException if access token is missing or invalid
+     * @throws Exception\ApiException if a server-side error occurred
+     *
+     * @return Response|null
+     */
+    public function get(int $id, array $filter = [], ?array $field = null): ?Response
+    {
+        $contacts = $this->list(array_merge([
+            'ContactIds' => [$id],
+        ], $filter), null, $field);
+
+        if (isset($contacts[0])) {
+            return new Response($contacts[0]);
+        } else {
+            return null;
+        }
+    }
+
     /**
      * Update, create or remove attributes/subdetails for a given contact ID.
      * To remove the value of an attribute you need to add the attribute in the
@@ -83,7 +110,7 @@ final class Contacts extends Endpoint
         $request->requireAuthentication(true);
         return new Response($this->getApiAdapter()->request($request));
     }
-    
+
     /**
      * Create a contact. When a contact already exists with the same
      * PrivateEmail value, the API will update the existing contact instead.
@@ -107,7 +134,7 @@ final class Contacts extends Endpoint
         $request->requireAuthentication(true);
         return new Response($this->getApiAdapter()->request($request));
     }
-    
+
     /**
      * Delete one or more contacts within a list of ID's.
      *
@@ -138,12 +165,12 @@ final class Contacts extends Endpoint
                 'ContactIds' => [intval($parameters)],
             ];
         }
-        
+
         $request = new Request('DELETE', 'v1/contacts/delete', $parameters);
         $request->requireAuthentication(true);
         return new Response($this->getApiAdapter()->request($request));
     }
-    
+
     /**
      * Access endpoints related to contact origins.
      *
@@ -156,7 +183,7 @@ final class Contacts extends Endpoint
         }
         return $this->originsEndpoint;
     }
-    
+
     /**
      * Access endpoints related to contact titles.
      *
@@ -169,7 +196,7 @@ final class Contacts extends Endpoint
         }
         return $this->titlesEndpoint;
     }
-    
+
     /**
      * Access endpoints related to contact types.
      *

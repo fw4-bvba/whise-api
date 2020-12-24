@@ -6,12 +6,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
- 
+
 namespace Whise\Api\Response;
 
 class Response extends ResponseObject
 {
-    public function __construct(ResponseData $response)
+    public function __construct(ResponseObject $response)
     {
         $this->_data = $response->getData();
     }

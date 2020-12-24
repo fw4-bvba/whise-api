@@ -10,6 +10,7 @@
 namespace Whise\Api\Endpoints;
 
 use Whise\Api\Endpoint;
+use Whise\Api\Enums;
 use Whise\Api\Request\Request;
 use Whise\Api\Request\CollectionRequest;
 use Whise\Api\Response\Response;
@@ -20,16 +21,16 @@ final class Estates extends Endpoint
 {
     /** @var EstatesRegions */
     protected $regionsEndpoint;
-    
+
     /** @var EstatesUsedCities */
     protected $usedCitiesEndpoint;
-    
+
     /** @var EstatesPictures */
     protected $picturesEndpoint;
-    
+
     /** @var EstatesDocuments */
     protected $documentsEndpoint;
-    
+
     /**
      * Request a list of real estate properties and/or projects.
      *
@@ -56,12 +57,41 @@ final class Estates extends Endpoint
             'Sort' => $sort,
             'Field' => $field,
         ]);
-        
+
         $request = new CollectionRequest('POST', 'v1/estates/list', $parameters);
         $request->setResponseKey('estates')->requireAuthentication(true);
         return new CollectionResponsePaginated($request, $this->getApiAdapter());
     }
-    
+
+    /**
+     * Request a single real estate property and/or project.
+     *
+     * @param int $id
+     * @param array $filter Associative array containing filter parameters
+     * @param array $field Associative array containing parameters relating to
+     * which fields to include or exclude
+     *
+     * @throws Exception\AuthException if access is denied
+     * @throws Exception\AuthException if access token is missing or invalid
+     * @throws Exception\ApiException if a server-side error occurred
+     *
+     * @return Response|null
+     */
+    public function get(int $id, array $filter = [], ?array $field = null): ?Response
+    {
+        $estates = $this->list(array_merge([
+            'EstateIds' => [$id],
+            'StatusIds' => Enums\Status::all(),
+            'DisplayStatusIds' => Enums\DisplayStatus::all(),
+        ], $filter), null, $field);
+
+        if (isset($estates[0])) {
+            return new Response($estates[0]);
+        } else {
+            return null;
+        }
+    }
+
     /**
      * Update, create or remove attributes/subdetails for a given estate ID.
      * To remove the value of an attribute you need to add the attribute in the
@@ -88,7 +118,7 @@ final class Estates extends Endpoint
         $request->requireAuthentication(true);
         return new Response($this->getApiAdapter()->request($request));
     }
-    
+
     /**
      * Create a new real estate property or project.
      *
@@ -111,8 +141,8 @@ final class Estates extends Endpoint
         $request->requireAuthentication(true);
         return new Response($this->getApiAdapter()->request($request));
     }
-    
-    
+
+
     /**
      * Delete a single real estate property or project.
      *
@@ -141,7 +171,7 @@ final class Estates extends Endpoint
         $request->requireAuthentication(true);
         return new Response($this->getApiAdapter()->request($request));
     }
-    
+
     /**
      * Access endpoints related to regions.
      *
@@ -154,7 +184,7 @@ final class Estates extends Endpoint
         }
         return $this->regionsEndpoint;
     }
-    
+
     /**
      * Access endpoints related to cities in use.
      *
@@ -167,7 +197,7 @@ final class Estates extends Endpoint
         }
         return $this->usedCitiesEndpoint;
     }
-    
+
     /**
      * Access endpoints related to estate pictures.
      *
@@ -180,7 +210,7 @@ final class Estates extends Endpoint
         }
         return $this->picturesEndpoint;
     }
-    
+
     /**
      * Access endpoints related to estate documents.
      *
