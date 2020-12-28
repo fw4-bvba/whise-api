@@ -35,7 +35,7 @@ final class CalendarsActions extends Endpoint
     public function list(?array $parameters = null): CollectionResponse
     {
         $request = new CollectionRequest('POST', 'v1/calendars/actions/list', $parameters);
-        $request->setResponseKey('calendarActions')->requireAuthentication(true);
+        $request->setResponseKey('calendarActions')->requireAuthentication(true)->allowGreedyCache(true);
         return new CollectionResponsePaginated($request, $this->getApiAdapter());
     }
 }

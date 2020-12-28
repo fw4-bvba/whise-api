@@ -35,7 +35,7 @@ final class AdminOffices extends Endpoint
     public function list(?array $parameters = null): CollectionResponse
     {
         $request = new CollectionRequest('POST', 'v1/admin/offices/list', $parameters);
-        $request->setResponseKey('offices')->requireAuthentication(true);
+        $request->setResponseKey('offices')->requireAuthentication(true)->allowGreedyCache(true);
         return new CollectionResponsePaginated($request, $this->getApiAdapter());
     }
 }

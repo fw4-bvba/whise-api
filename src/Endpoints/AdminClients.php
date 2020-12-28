@@ -37,10 +37,10 @@ final class AdminClients extends Endpoint
     public function list(?array $parameters = null): CollectionResponse
     {
         $request = new CollectionRequest('POST', 'v1/admin/clients/list', $parameters);
-        $request->setResponseKey('clients')->requireAuthentication(true);
+        $request->setResponseKey('clients')->requireAuthentication(true)->allowGreedyCache(true);
         return new CollectionResponsePaginated($request, $this->getApiAdapter());
     }
-    
+
     /**
      * Request the settings defined by the client.
      *
@@ -66,10 +66,10 @@ final class AdminClients extends Endpoint
             ];
         }
         $request = new Request('POST', 'v1/admin/clients/settings', $parameters);
-        $request->setResponseKey('settings')->requireAuthentication(true);
+        $request->setResponseKey('settings')->requireAuthentication(true)->allowGreedyCache(true);
         return new Response($this->getApiAdapter()->request($request));
     }
-    
+
     /**
      * Request a JWT token for a client. The OfficeId field is required to
      * select an activated office of that client.

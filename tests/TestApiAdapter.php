@@ -10,14 +10,13 @@
 namespace Whise\Api\Tests;
 
 use Whise\Api\ApiAdapter\ApiAdapter;
-use Whise\Api\ApiAdapter\ApiAdapterInterface;
 use Whise\Api\Request\Request;
 
 final class TestApiAdapter extends ApiAdapter
 {
     /** @var array */
     protected $responseQueue = [];
-    
+
     public function clearQueue(): void
     {
         $this->responseQueue = [];
@@ -34,15 +33,20 @@ final class TestApiAdapter extends ApiAdapter
      public function requestBody(Request $request): string
     {
 		if (count($this->responseQueue) === 0) return null;
-        
+
 		$response = $this->responseQueue[0];
 		array_shift($this->responseQueue);
-        
+
         return $response;
     }
-    
-    public function setAccessToken(string $token): ApiAdapterInterface
+
+    public function setAccessToken(string $token): ApiAdapter
     {
         throw new \Exception('TestApiAdapter does not support access tokens');
+    }
+
+    public function getAccessToken(): string
+    {
+        return 'test';
     }
 }

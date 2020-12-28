@@ -47,6 +47,7 @@ $api->admin()->representatives()->list($parameters);
 
 ```php
 $api->estates()->list($filter, $sorting, $fields);
+$api->estates()->get($id, $filter, $fields);
 $api->estates()->update($parameters);
 $api->estates()->create($parameters);
 $api->estates()->delete($id);
@@ -62,6 +63,7 @@ $api->estates()->documents()->delete($estate_id, $document_id);
 
 ```php
 $api->contacts()->list($filter, $sorting, $fields);
+$api->contacts()->get($id, $filter, $fields);
 $api->contacts()->update($parameters);
 $api->contacts()->create($parameters);
 $api->contacts()->delete($id);
@@ -132,6 +134,42 @@ echo 'Showing ' . $page->count() . ' items out of ' . $page->getTotalCount() . P
 echo 'Page ' . ($page->getPage() + 1) . ' of ' . $page->getPageCount() . PHP_EOL;
 foreach ($page as $estate) {
     echo $estate->name . PHP_EOL;
+}
+```
+
+### Caching
+
+It's possible to enable caching by using a [PSR-6 compatible cache adapter](https://www.php-fig.org/psr/psr-6/). Do
+note that this will cause all read operations to be cached, overriding any cache-control policy used by the Whise API,
+violating RFC.
+
+```php
+use Cache\Adapter\Redis\RedisCachePool;
+
+$redis = new \Redis();
+$redis->connect('127.0.0.1', 6379);
+$cache = new RedisCachePool($redis);
+
+$api = new Whise\Api\WhiseApi($access_token);
+$api->setCache($cache);
+```
+
+You can change the default cache lifetime of one hour, as well as the cache key prefix, by using the second and third
+parameters of `setCache` respectively. These can also be changed at runtime by using the `setCacheTtl` and
+`setCachePrefix` methods.
+
+Responses are cached per access token, so make sure to reuse your access token to share a cache across script
+executions.
+
+To determine whether a response was returned from cache, call the `isCacheHit` method. This method is not available
+when using automatic pagination.
+
+```php
+$estate = $api->estates()->get(1);
+if ($estate->isCacheHit()) {
+    echo 'Response fetched from cache' . PHP_EOL;
+} else {
+    echo 'Response fetched from API' . PHP_EOL;
 }
 ```
 

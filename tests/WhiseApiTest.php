@@ -18,6 +18,7 @@ use Whise\Api\Endpoints\Contacts;
 use Whise\Api\Endpoints\Calendars;
 use Whise\Api\Endpoints\Activities;
 use InvalidArgumentException;
+use Cache\Adapter\PHPArray\ArrayCachePool;
 
 class WhiseApiTest extends ApiTestCase
 {
@@ -112,5 +113,26 @@ class WhiseApiTest extends ApiTestCase
         $response = self::$api->requestClientToken(1, 1);
 
         $this->assertEquals('bar', $response->foo);
+    }
+
+    public function testCache(): void
+    {
+        $cache = new ArrayCachePool();
+        $adapter = new TestApiAdapter();
+        $api = new WhiseApi();
+        $api->setApiAdapter($adapter);
+
+        $api->setCache($cache, 100, 'test');
+
+        $this->assertEquals($cache, $adapter->getCache());
+        $this->assertEquals(100, $adapter->getCacheTtl());
+        $this->assertEquals('test', $adapter->getCachePrefix());
+
+        $date = new \DateTime('+1 year');
+        $api->setCacheTtl($date);
+        $this->assertEquals($date, $adapter->getCacheTtl());
+
+        $api->setCachePrefix('foo');
+        $this->assertEquals('foo', $adapter->getCachePrefix());
     }
 }

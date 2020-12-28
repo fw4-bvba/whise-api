@@ -22,13 +22,13 @@ use PackageVersions\Versions;
 final class HttpApiAdapter extends ApiAdapter
 {
     private const BASE_URI = 'https://api.whise.eu/';
-    
+
     /** @var string */
     private $accessToken;
-    
+
     /** @var Client */
     private $client;
-    
+
     public function __construct(array $http_client_options = [])
     {
         $http_client_options['base_uri'] = self::BASE_URI;
@@ -41,22 +41,25 @@ final class HttpApiAdapter extends ApiAdapter
         }
         $http_client_options['headers']['Accept'] = 'application/json';
         $http_client_options['headers']['Content-Type'] = 'application/json';
-        
+
         $this->client = new Client(array_merge([
             'timeout' => 2.0,
             'http_errors' => false,
         ], $http_client_options));
     }
-    
+
     /**
      * {@inheritdoc}
      */
-    public function setAccessToken(string $token): ApiAdapterInterface
+    public function setAccessToken(string $token): ApiAdapter
     {
         $this->accessToken = $token;
         return $this;
     }
-    
+
+    /**
+     * {@inheritdoc}
+     */
     public function getAccessToken(): string
     {
         if (empty($this->accessToken)) {
@@ -80,12 +83,12 @@ final class HttpApiAdapter extends ApiAdapter
         $headers = $request->getHeaders();
         $body = $request->getBody();
         $multiparts = $request->getMultiparts();
-        
+
         // Set access token if request requires authentication
         if ($request->getRequiresAuthentication()) {
             $headers['Authorization'] = 'Bearer ' . $this->getAccessToken();
         }
-        
+
         $options = [];
         if (count($parameters)) {
             $options['query'] = $parameters;
@@ -100,7 +103,7 @@ final class HttpApiAdapter extends ApiAdapter
         } else {
             $options['body'] = '{}';
         }
-        
+
         $guzzle_request = new GuzzleRequest($request->getMethod(), $request->getEndpoint(), $headers);
         $response = $this->client->send($guzzle_request, $options);
         $body = $response->getBody()->getContents();

@@ -10,7 +10,8 @@
         "ocramius/package-versions": "^1.4"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.4"
+        "phpunit/phpunit": "^8.4",
+        "cache/array-adapter": "^1.1"
     },
     "autoload": {
         "psr-4": { "Whise\\Api\\": "src/" }

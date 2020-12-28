@@ -10,7 +10,7 @@
 namespace Whise\Api\Response;
 
 use Whise\Api\Request\CollectionRequest;
-use Whise\Api\ApiAdapter\ApiAdapterInterface;
+use Whise\Api\ApiAdapter\ApiAdapter;
 use Whise\Api\WhiseApi;
 
 class CollectionResponsePaginated extends CollectionResponse
@@ -18,13 +18,13 @@ class CollectionResponsePaginated extends CollectionResponse
     /** @var CollectionRequest */
     protected $request;
 
-    /** @var ApiAdapterInterface */
+    /** @var ApiAdapter */
     protected $apiAdapter;
 
     /** @var CollectionResponsePage */
     protected $pageBuffer;
 
-    public function __construct(CollectionRequest $request, ApiAdapterInterface $api_adapter)
+    public function __construct(CollectionRequest $request, ApiAdapter $api_adapter)
     {
         $this->request = $request;
         $this->apiAdapter = $api_adapter;

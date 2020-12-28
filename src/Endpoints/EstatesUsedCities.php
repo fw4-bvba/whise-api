@@ -38,9 +38,9 @@ final class EstatesUsedCities extends Endpoint
         $parameters = $this->getFilterParameters([
             'EstateFilter' => $estate_filter,
         ]);
-        
+
         $request = new CollectionRequest('POST', 'v1/estates/usedcities/list', $parameters);
-        $request->setResponseKey('usedcities')->requireAuthentication(true);
+        $request->setResponseKey('usedcities')->requireAuthentication(true)->allowGreedyCache(true);
         return new CollectionResponsePaginated($request, $this->getApiAdapter());
     }
 }

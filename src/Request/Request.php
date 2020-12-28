@@ -15,28 +15,31 @@ class Request
 {
     /** @var string */
     protected $method;
-    
+
     /** @var string */
     protected $endpoint;
-    
+
     /** @var array */
     protected $parameters;
-    
+
     /** @var array */
     protected $headers;
-    
+
     /** @var array|string|null */
     protected $body;
-    
+
     /** @var string|null */
     protected $responseKey;
-    
+
     /** @var bool */
     protected $requiresAuthentication = false;
-    
+
+    /** @var bool */
+    protected $allowsGreedyCache = false;
+
     /** @var array|null */
     protected $multiparts;
-    
+
     public function __construct(
         string $method,
         string $endpoint,
@@ -52,7 +55,7 @@ class Request
             $this->setBody($body);
         }
     }
-    
+
     /**
      * Determine whether or not the request requires an access token.
      *
@@ -65,7 +68,7 @@ class Request
         $this->requiresAuthentication = $requires_authentication;
         return $this;
     }
-    
+
     /**
      * Check whether or not the request requires an access token.
      *
@@ -75,7 +78,32 @@ class Request
     {
         return $this->requiresAuthentication;
     }
-    
+
+    /**
+     * Determine whether the response should be allowed to be cached.
+     *
+     * @param bool $allow_cache
+     *
+     * @return self
+     */
+    public function allowGreedyCache(bool $allow_cache = true): Request
+    {
+        $this->allowsGreedyCache = $allow_cache;
+        return $this;
+    }
+
+    /**
+     * Determine whether the response should be allowed to be cached.
+     *
+     * @param bool $allow_cache
+     *
+     * @return self
+     */
+    public function getAllowsGreedyCache(): bool
+    {
+        return $this->allowsGreedyCache;
+    }
+
     /**
      * Set the HTTP method to use for this request.
      *
@@ -88,7 +116,7 @@ class Request
         $this->method = $method;
         return $this;
     }
-    
+
     /**
      * Get the HTTP method to use for this request.
      *
@@ -98,7 +126,7 @@ class Request
     {
         return $this->method;
     }
-    
+
     /**
      * Set the endpoint/URI path to query.
      *
@@ -111,7 +139,7 @@ class Request
         $this->endpoint = $endpoint;
         return $this;
     }
-    
+
     /**
      * Get the endpoint/URI path to query.
      *
@@ -121,7 +149,7 @@ class Request
     {
         return $this->endpoint;
     }
-    
+
     /**
      * Set the HTTP query string parameters.
      *
@@ -134,7 +162,7 @@ class Request
         $this->parameters = $parameters;
         return $this;
     }
-    
+
     /**
      * Get the HTTP query string parameters.
      *
@@ -144,7 +172,7 @@ class Request
     {
         return $this->parameters;
     }
-    
+
     /**
      * Set additional HTTP headers.
      *
@@ -157,7 +185,7 @@ class Request
         $this->headers = $headers;
         return $this;
     }
-    
+
     /**
      * Get additional HTTP headers.
      *
@@ -167,7 +195,7 @@ class Request
     {
         return $this->headers;
     }
-    
+
     /**
      * Set the HTTP body to send.
      *
@@ -180,7 +208,7 @@ class Request
         $this->body = $body;
         return $this;
     }
-    
+
     /**
      * Get the HTTP body to send.
      *
@@ -194,7 +222,7 @@ class Request
             return json_encode($this->encode($this->body));
         }
     }
-    
+
     /**
      * Set the name of the property which we're expecting the actual response
      * data to be contained within.
@@ -208,7 +236,7 @@ class Request
         $this->responseKey = $key;
         return $this;
     }
-    
+
     /**
      * Get the name of the property which we're expecting the actual response
      * data to be contained within.
@@ -219,7 +247,7 @@ class Request
     {
         return $this->responseKey;
     }
-    
+
     /**
      * Add a file or form data to the request. If a body is already set,
      * multipart data is ignored.
@@ -247,10 +275,10 @@ class Request
             $multipart['headers'] = $headers;
         }
         $this->multiparts[] = $multipart;
-        
+
         return $this;
     }
-    
+
     /**
      * Get files and form data to be sent.
      *
@@ -260,7 +288,7 @@ class Request
     {
         return $this->multiparts;
     }
-    
+
     /**
      * Recursively encode a value into a format understood by the Whise API.
      *
@@ -278,5 +306,10 @@ class Request
             return $encodable->format('c');
         }
         return $encodable;
+    }
+
+    public function getCacheKey(): string
+    {
+        return $this->endpoint . json_encode($this->getParameters()) . $this->getBody();
     }
 }

@@ -35,7 +35,7 @@ final class ContactsOrigins extends Endpoint
     public function list(?array $parameters = null): CollectionResponse
     {
         $request = new CollectionRequest('POST', 'v1/contacts/origins/list', $parameters);
-        $request->setResponseKey('contactOrigins')->requireAuthentication(true);
+        $request->setResponseKey('contactOrigins')->requireAuthentication(true)->allowGreedyCache(true);
         return new CollectionResponsePaginated($request, $this->getApiAdapter());
     }
 }

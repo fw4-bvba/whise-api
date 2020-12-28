@@ -13,8 +13,10 @@ use Whise\Api\Exception\InvalidPropertyException;
 use Whise\Api\Exception\InvalidDataException;
 use Whise\Api\ApiAdapter\ApiAdapter;
 
-class ResponseData extends ResponseObject
+class ResponseData extends ResponseObject implements CacheInterface
 {
+    use CacheTrait;
+
     /** @var array */
     protected $_metadata = [];
 

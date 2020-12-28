@@ -55,7 +55,7 @@ final class Contacts extends Endpoint
         ]);
 
         $request = new CollectionRequest('POST', 'v1/contacts/list', $parameters);
-        $request->setResponseKey('contacts')->requireAuthentication(true);
+        $request->setResponseKey('contacts')->requireAuthentication(true)->allowGreedyCache(true);
         return new CollectionResponsePaginated($request, $this->getApiAdapter());
     }
 
@@ -77,10 +77,12 @@ final class Contacts extends Endpoint
     {
         $contacts = $this->list(array_merge([
             'ContactIds' => [$id],
-        ], $filter), null, $field);
+        ], $filter), null, $field)->page(0, 1);
 
         if (isset($contacts[0])) {
-            return new Response($contacts[0]);
+            $response = new Response($contacts[0]);
+            $response->transferCacheAttributes($contacts);
+            return $response;
         } else {
             return null;
         }

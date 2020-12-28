@@ -35,7 +35,7 @@ final class AdminRepresentatives extends Endpoint
     public function list(?array $parameters = null): CollectionResponse
     {
         $request = new CollectionRequest('POST', 'v1/admin/representatives/list', $parameters);
-        $request->setResponseKey('representatives')->requireAuthentication(true);
+        $request->setResponseKey('representatives')->requireAuthentication(true)->allowGreedyCache(true);
         return new CollectionResponsePaginated($request, $this->getApiAdapter());
     }
 }

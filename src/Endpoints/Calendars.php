@@ -20,7 +20,7 @@ final class Calendars extends Endpoint
 {
     /** @var CalendarsActions */
     protected $actionsEndpoint;
-    
+
     /**
      * Request a list of calendar events.
      *
@@ -54,12 +54,12 @@ final class Calendars extends Endpoint
             'Field' => $field,
             'Aggregate' => $aggregate,
         ]);
-        
+
         $request = new CollectionRequest('POST', 'v1/calendars/list', $parameters);
-        $request->setResponseKey('calendars')->requireAuthentication(true);
+        $request->setResponseKey('calendars')->requireAuthentication(true)->allowGreedyCache(true);
         return new CollectionResponsePaginated($request, $this->getApiAdapter());
     }
-    
+
     /**
      * Create a calendar event.
      *
@@ -82,7 +82,7 @@ final class Calendars extends Endpoint
         $request->requireAuthentication(true);
         return new Response($this->getApiAdapter()->request($request));
     }
-    
+
     /**
      * Delete a calendar event.
      *
@@ -113,12 +113,12 @@ final class Calendars extends Endpoint
                 'CalendarIds' => [intval($parameters)],
             ];
         }
-        
+
         $request = new Request('DELETE', 'v1/calendars/delete', $parameters);
         $request->requireAuthentication(true);
         return new Response($this->getApiAdapter()->request($request));
     }
-    
+
     /**
      * Add a contact to an event.
      *

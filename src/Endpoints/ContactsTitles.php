@@ -35,7 +35,7 @@ final class ContactsTitles extends Endpoint
     public function list(?array $parameters = null): CollectionResponse
     {
         $request = new CollectionRequest('POST', 'v1/contacts/titles/list', $parameters);
-        $request->setResponseKey('contactTitles')->requireAuthentication(true);
+        $request->setResponseKey('contactTitles')->requireAuthentication(true)->allowGreedyCache(true);
         return new CollectionResponsePaginated($request, $this->getApiAdapter());
     }
 }

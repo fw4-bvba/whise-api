@@ -59,7 +59,7 @@ final class Estates extends Endpoint
         ]);
 
         $request = new CollectionRequest('POST', 'v1/estates/list', $parameters);
-        $request->setResponseKey('estates')->requireAuthentication(true);
+        $request->setResponseKey('estates')->requireAuthentication(true)->allowGreedyCache(true);
         return new CollectionResponsePaginated($request, $this->getApiAdapter());
     }
 
@@ -83,10 +83,12 @@ final class Estates extends Endpoint
             'EstateIds' => [$id],
             'StatusIds' => Enums\Status::all(),
             'DisplayStatusIds' => Enums\DisplayStatus::all(),
-        ], $filter), null, $field);
+        ], $filter), null, $field)->page(0, 1);
 
         if (isset($estates[0])) {
-            return new Response($estates[0]);
+            $response = new Response($estates[0]);
+            $response->transferCacheAttributes($estates);
+            return $response;
         } else {
             return null;
         }

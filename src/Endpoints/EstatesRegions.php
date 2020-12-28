@@ -35,7 +35,7 @@ final class EstatesRegions extends Endpoint
     public function list(?array $parameters = null): CollectionResponse
     {
         $request = new CollectionRequest('POST', 'v1/estates/regions/list', $parameters);
-        $request->setResponseKey('regions')->requireAuthentication(true);
+        $request->setResponseKey('regions')->requireAuthentication(true)->allowGreedyCache(true);
         return new CollectionResponsePaginated($request, $this->getApiAdapter());
     }
 }

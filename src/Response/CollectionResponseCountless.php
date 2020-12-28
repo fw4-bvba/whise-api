@@ -11,7 +11,6 @@ namespace Whise\Api\Response;
 
 use Whise\Api\Request\Request;
 use Whise\Api\Request\CollectionRequest;
-use Whise\Api\ApiAdapter\ApiAdapterInterface;
 
 class CollectionResponseCountless extends CollectionResponsePaginated
 {

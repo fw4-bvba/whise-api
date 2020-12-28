@@ -11,16 +11,18 @@ namespace Whise\Api\Response;
 
 use Whise\Api\Request\Request;
 use Whise\Api\Request\CollectionRequest;
-use Whise\Api\ApiAdapter\ApiAdapterInterface;
 
-class CollectionResponse implements \Countable, \IteratorAggregate, \ArrayAccess
+class CollectionResponse implements \Countable, \IteratorAggregate, \ArrayAccess, CacheInterface
 {
+    use CacheTrait;
+
     /** @var array */
     protected $data;
 
     public function __construct(ResponseData $data)
     {
         $this->data = array_values($data->getData());
+        $this->transferCacheAttributes($data);
     }
 
     /**
@@ -32,7 +34,7 @@ class CollectionResponse implements \Countable, \IteratorAggregate, \ArrayAccess
     {
         return $this->data[$position];
     }
-    
+
     /**
      * @codeCoverageIgnore
      */
@@ -54,9 +56,9 @@ class CollectionResponse implements \Countable, \IteratorAggregate, \ArrayAccess
     {
         return new CollectionResponseIterator($this);
     }
-    
+
     /* ArrayAccess implementation */
-    
+
     public function offsetExists($offset): bool
     {
         if (!is_int($offset)) {
@@ -64,7 +66,7 @@ class CollectionResponse implements \Countable, \IteratorAggregate, \ArrayAccess
         }
         return $offset >= 0 && $offset < $this->count();
     }
-    
+
     public function offsetGet($offset)
     {
         if (!$this->offsetExists($offset)) {
@@ -72,7 +74,7 @@ class CollectionResponse implements \Countable, \IteratorAggregate, \ArrayAccess
         }
         return $this->get($offset);
     }
-    
+
     /**
      * @codeCoverageIgnore
      */
@@ -80,7 +82,7 @@ class CollectionResponse implements \Countable, \IteratorAggregate, \ArrayAccess
     {
         throw new \Exception('offsetSet not implemented on CollectionResponse');
     }
-    
+
     /**
      * @codeCoverageIgnore
      */

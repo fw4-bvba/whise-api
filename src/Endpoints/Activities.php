@@ -42,12 +42,12 @@ final class Activities extends Endpoint
             'Filter' => $filter,
             'Aggregate' => $aggregate,
         ]);
-        
+
         $request = new CollectionRequest('POST', 'v1/activities/calendars', $parameters);
-        $request->setResponseKey('activities')->requireAuthentication(true);
+        $request->setResponseKey('activities')->requireAuthentication(true)->allowGreedyCache(true);
         return new CollectionResponseCountless($request, $this->getApiAdapter());
     }
-    
+
     /**
      * Request a list of history-type activities.
      *
@@ -72,12 +72,12 @@ final class Activities extends Endpoint
             'Filter' => $filter,
             'Aggregate' => $aggregate,
         ]);
-        
+
         $request = new CollectionRequest('POST', 'v1/activities/histories', $parameters);
-        $request->setResponseKey('activities')->requireAuthentication(true);
+        $request->setResponseKey('activities')->requireAuthentication(true)->allowGreedyCache(true);
         return new CollectionResponseCountless($request, $this->getApiAdapter());
     }
-    
+
     /**
      * Request a list of data-audit-type activities.
      *
@@ -102,12 +102,12 @@ final class Activities extends Endpoint
             'Filter' => $filter,
             'Aggregate' => $aggregate,
         ]);
-        
+
         $request = new CollectionRequest('POST', 'v1/activities/audits', $parameters);
-        $request->setResponseKey('activities')->requireAuthentication(true);
+        $request->setResponseKey('activities')->requireAuthentication(true)->allowGreedyCache(true);
         return new CollectionResponseCountless($request, $this->getApiAdapter());
     }
-    
+
     /**
      * Request a list of history-export-type activities.
      *
@@ -132,9 +132,9 @@ final class Activities extends Endpoint
             'Filter' => $filter,
             'Aggregate' => $aggregate,
         ]);
-        
+
         $request = new CollectionRequest('POST', 'v1/activities/historyexports', $parameters);
-        $request->setResponseKey('activities')->requireAuthentication(true);
+        $request->setResponseKey('activities')->requireAuthentication(true)->allowGreedyCache(true);
         return new CollectionResponseCountless($request, $this->getApiAdapter());
     }
 }

@@ -9,15 +9,16 @@
 
 namespace Whise\Api;
 
-use Whise\Api\ApiAdapter\ApiAdapterInterface;
+use Whise\Api\ApiAdapter\ApiAdapter;
 use Whise\Api\ApiAdapter\HttpApiAdapter;
 use Whise\Api\Response\Response;
 use Whise\Api\Request\Request;
 use InvalidArgumentException;
+use Psr\Cache\CacheItemPoolInterface;
 
 final class WhiseApi
 {
-    /** @var ApiAdapterInterface */
+    /** @var ApiAdapter */
     private $apiAdapter;
 
     /** @var Endpoints\Admin */
@@ -210,18 +211,70 @@ final class WhiseApi
 
     // Api adapter
 
-    public function setApiAdapter(ApiAdapterInterface $adapter): self
+    public function setApiAdapter(ApiAdapter $adapter): self
     {
         $this->apiAdapter = $adapter;
         return $this;
     }
 
-    public function getApiAdapter(): ApiAdapterInterface
+    public function getApiAdapter(): ApiAdapter
     {
         if (!isset($this->apiAdapter)) {
             $this->setApiAdapter(new HttpApiAdapter());
         }
         return $this->apiAdapter;
+    }
+
+    // Cache
+
+    /**
+     * Set a PSR-6 compatible adapter to use for caching. Responses are cached
+     * greedily, as the cache-control policy of the Whise API will be ignored.
+     *
+     * @param CacheItemPoolInterface|null $cache
+     * @param int|DateTime $ttl Time to cache in seconds, or an explicit
+     * expiration date
+     * @param string $prefix Prefix to use for cache keys
+     *
+     * @return self
+     */
+    public function setCache(?CacheItemPoolInterface $cache, $ttl = null, ?string $prefix = null): self
+    {
+        $this->getApiAdapter()->setCache($cache);
+        if (!is_null($ttl)) {
+            $this->getApiAdapter()->setCacheTtl($ttl);
+        }
+        if (!is_null($prefix)) {
+            $this->getApiAdapter()->setCachePrefix($prefix);
+        }
+        return $this;
+    }
+
+    /**
+     * Change the cache lifetime.
+     *
+     * @param int|DateTime $ttl Time to cache in seconds, or an explicit
+     * expiration date
+     *
+     * @return self
+     */
+    public function setCacheTtl($ttl): self
+    {
+        $this->getApiAdapter()->setCacheTtl($ttl);
+        return $this;
+    }
+
+    /**
+     * Change the cache key prefix.
+     *
+     * @param string $prefix Prefix to use for cache keys
+     *
+     * @return self
+     */
+    public function setCachePrefix(string $prefix): self
+    {
+        $this->getApiAdapter()->setCachePrefix($prefix);
+        return $this;
     }
 
     /**

@@ -35,7 +35,7 @@ final class ContactsTypes extends Endpoint
     public function list(?array $parameters = null): CollectionResponse
     {
         $request = new CollectionRequest('POST', 'v1/contacts/types/list', $parameters);
-        $request->setResponseKey('contactTypes')->requireAuthentication(true);
+        $request->setResponseKey('contactTypes')->requireAuthentication(true)->allowGreedyCache(true);
         return new CollectionResponsePaginated($request, $this->getApiAdapter());
     }
 }
