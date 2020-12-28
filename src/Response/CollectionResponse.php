@@ -12,7 +12,7 @@ namespace Whise\Api\Response;
 use Whise\Api\Request\Request;
 use Whise\Api\Request\CollectionRequest;
 
-class CollectionResponse implements \Countable, \IteratorAggregate, \ArrayAccess, CacheInterface
+class CollectionResponse implements \Countable, \IteratorAggregate, \ArrayAccess, \JsonSerializable, CacheInterface
 {
     use CacheTrait;
 
@@ -89,5 +89,12 @@ class CollectionResponse implements \Countable, \IteratorAggregate, \ArrayAccess
     public function offsetUnset($offset): void
     {
         throw new \Exception('offsetUnset not implemented on CollectionResponse');
+    }
+
+    /* JsonSerializable implementation */
+
+    public function jsonSerialize()
+    {
+        return $this->data;
     }
 }
