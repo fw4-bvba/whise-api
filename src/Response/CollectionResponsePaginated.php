@@ -115,6 +115,6 @@ class CollectionResponsePaginated extends CollectionResponse
         if (is_null($this->pageBuffer)) {
             $this->bufferPage(0);
         }
-        return $this->pageBuffer->getTotalCount();
+        return $this->pageBuffer->getTotalCount() ?? 0;
     }
 }

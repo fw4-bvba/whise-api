@@ -41,8 +41,8 @@ class CollectionResponsePageTest extends ApiTestCase
         $response = new CollectionResponsePaginated($request, self::$adapter);
         $page = $response->page(0, 20);
 
-        $this->expectException(PaginationException::class);
-        $page->getTotalCount();
+        $this->assertFalse($page->hasTotalCount());
+        $this->assertNull($page->getTotalCount());
     }
 
     public function testGetTotalCountInvalid(): void

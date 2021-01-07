@@ -67,15 +67,10 @@ class CollectionResponsePage extends CollectionResponse
     /**
      * Get the total amount of items across all pages.
      *
-     * @throws PaginationException if the endpoint does not support this functionality
-     *
-     * @return int
+     * @return int|null Total item count, or null if unknown
      */
-    public function getTotalCount(): int
+    public function getTotalCount(): ?int
     {
-        if (!$this->hasTotalCount()) {
-            throw new PaginationException('Unable to retrieve total item count of endpoint that does not return totalCount');
-        }
         return $this->totalCount;
     }
 
