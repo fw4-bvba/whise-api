@@ -39,10 +39,13 @@ final class WhiseApi
     /** @var int */
     protected static $defaultPageSize = 50;
 
-    public function __construct($access_token = null)
+    public function __construct($access_token = null, ?array $http_client_options = null)
     {
         if (!is_null($access_token)) {
             $this->setAccessToken($access_token);
+        }
+        if (!is_null($http_client_options)) {
+            $this->setApiAdapter(new HttpApiAdapter($http_client_options));
         }
     }
 

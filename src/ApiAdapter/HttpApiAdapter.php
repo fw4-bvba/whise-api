@@ -127,4 +127,9 @@ final class HttpApiAdapter extends ApiAdapter
         }
         return $body;
     }
+
+    public function getHttpClient(): Client
+    {
+        return $this->client;
+    }
 }

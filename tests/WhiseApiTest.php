@@ -10,6 +10,7 @@
 namespace Whise\Api\Tests;
 
 use Whise\Api\WhiseApi;
+use Whise\Api\ApiAdapter\HttpApiAdapter;
 use Whise\Api\Endpoints\Admin;
 use Whise\Api\Endpoints\AdminClients;
 use Whise\Api\Endpoints\AdminOffices;
@@ -134,5 +135,15 @@ class WhiseApiTest extends ApiTestCase
 
         $api->setCachePrefix('foo');
         $this->assertEquals('foo', $adapter->getCachePrefix());
+    }
+
+    public function testHttpClientParameters(): void
+    {
+        $api = new WhiseApi(null, [
+            'timeout' => 123,
+        ]);
+
+        $this->assertTrue($api->getApiAdapter() instanceof HttpApiAdapter);
+        $this->assertEquals(123, $api->getApiAdapter()->getHttpClient()->getConfig('timeout'));
     }
 }
