@@ -43,7 +43,6 @@ final class HttpApiAdapter extends ApiAdapter
         $http_client_options['headers']['Content-Type'] = 'application/json';
 
         $this->client = new Client(array_merge([
-            'timeout' => 10.0,
             'http_errors' => false,
         ], $http_client_options));
     }
