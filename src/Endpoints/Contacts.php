@@ -114,8 +114,7 @@ final class Contacts extends Endpoint
     }
 
     /**
-     * Create a contact. When a contact already exists with the same
-     * PrivateEmail value, the API will update the existing contact instead.
+     * Create a contact.
      *
      * @link http://api.whise.eu/WebsiteDesigner.html#operation/Contacts_CreateContact
      * Official documentation
@@ -136,6 +135,32 @@ final class Contacts extends Endpoint
         $request->requireAuthentication(true);
         return new Response($this->getApiAdapter()->request($request));
     }
+
+
+    /**
+     * Create of update a contact. When a contact already exists with the same
+     * PrivateEmail value, the API will update the existing contact instead.
+     *
+     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Contacts_CreateContact
+     * Official documentation
+     *
+     * @param array $parameters Associative array containing request parameters
+     *
+     * @throws Exception\InvalidRequestException if the API rejects the request
+     * due to invalid input
+     * @throws Exception\AuthException if access is denied
+     * @throws Exception\AuthException if access token is missing or invalid
+     * @throws Exception\ApiException if a server-side error occurred
+     *
+     * @return Response
+     */
+    public function upsert(array $parameters): Response
+    {
+        $request = new Request('POST', 'v1/contacts/upsert', $parameters);
+        $request->requireAuthentication(true);
+        return new Response($this->getApiAdapter()->request($request));
+    }
+
 
     /**
      * Delete one or more contacts within a list of ID's.
