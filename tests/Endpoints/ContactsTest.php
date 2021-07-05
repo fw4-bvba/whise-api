@@ -78,6 +78,16 @@ class ContactsTest extends ApiTestCase
         $this->assertEquals('bar', $response->foo);
     }
 
+    public function testUpsert(): void
+    {
+        $endpoint = new Contacts(self::$api);
+
+        $this->queueResponse('{"foo": "bar"}');
+        $response = $endpoint->upsert([]);
+
+        $this->assertEquals('bar', $response->foo);
+    }
+
     public function testDelete(): void
     {
         $endpoint = new Contacts(self::$api);
