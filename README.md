@@ -66,6 +66,7 @@ $api->contacts()->list($filter, $sorting, $fields);
 $api->contacts()->get($id, $filter, $fields);
 $api->contacts()->update($parameters);
 $api->contacts()->create($parameters);
+$api->contacts()->upsert($parameters);
 $api->contacts()->delete($id);
 $api->contacts()->origins()->list($parameters);
 $api->contacts()->titles()->list($parameters);
