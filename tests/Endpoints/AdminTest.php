@@ -22,13 +22,13 @@ class AdminTest extends ApiTestCase
         $endpoint = new Admin(self::$api);
         $this->assertTrue($endpoint->clients() instanceof AdminClients);
     }
-    
+
     public function testOffices(): void
     {
         $endpoint = new Admin(self::$api);
         $this->assertTrue($endpoint->offices() instanceof AdminOffices);
     }
-    
+
     public function testRepresentatives(): void
     {
         $endpoint = new Admin(self::$api);

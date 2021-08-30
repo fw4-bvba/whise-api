@@ -41,10 +41,10 @@ final class EstatesDocuments extends Endpoint
         if (!is_array($files)) {
             $files = array_slice(func_get_args(), 1);
         }
-        
+
         $request = new Request('POST', 'v1/estates/documents/upload');
         $request->setResponseKey('documents')->requireAuthentication(true);
-        
+
         $documents = $uploadable_files = [];
         foreach ($files as $file) {
             if (is_string($file) && is_readable($file)) {
@@ -56,19 +56,19 @@ final class EstatesDocuments extends Endpoint
             $uploadable_files[] = $file;
             $documents[] = $file->getMetadata();
         }
-        
+
         $request->addMultipart('documents', json_encode([
             'EstateID' => $estate_id,
             'Documents' => $documents,
         ]));
-        
+
         foreach ($uploadable_files as $index => $file) {
             $request->addMultipart(strval($index), $file->getFileResource());
         }
-        
+
         return new CollectionResponse($this->getApiAdapter()->request($request));
     }
-    
+
     /**
      * Delete one or more documents.
      *
@@ -92,12 +92,12 @@ final class EstatesDocuments extends Endpoint
         if (!is_array($document_ids)) {
             $document_ids = [intval($document_ids)];
         }
-        
+
         $parameters = [
             'EstateId' => $estate_id,
             'DocumentIdList' => $document_ids,
         ];
-        
+
         $request = new Request('DELETE', 'v1/estates/documents/delete', $parameters);
         $request->requireAuthentication(true);
         return new Response($this->getApiAdapter()->request($request));

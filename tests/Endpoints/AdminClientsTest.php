@@ -17,35 +17,35 @@ class AdminClientsTest extends ApiTestCase
     public function testList(): void
     {
         $endpoint = new AdminClients(self::$api);
-        
+
         $this->queueResponse('{
             "clients": [1, 2, 3],
             "totalCount": 3
         }');
         $items = $endpoint->list();
-        
+
         $this->assertCount(3, $items);
     }
-    
+
     public function testSettings(): void
     {
         $endpoint = new AdminClients(self::$api);
-        
+
         $this->queueResponse('{
             "settings": {"foo": "bar"}
         }');
         $response = $endpoint->settings(1);
-        
+
         $this->assertEquals('bar', $response->foo);
     }
-    
+
     public function testToken(): void
     {
         $endpoint = new AdminClients(self::$api);
-        
+
         $this->queueResponse('{"foo": "bar"}');
         $response = $endpoint->token([]);
-        
+
         $this->assertEquals('bar', $response->foo);
     }
 }

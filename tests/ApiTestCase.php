@@ -14,10 +14,10 @@ use Whise\Api\WhiseApi;
 
 abstract class ApiTestCase extends TestCase
 {
-    static protected $adapter;
-    static protected $api;
-    
-    static public function setUpBeforeClass(): void
+    protected static $adapter;
+    protected static $api;
+
+    public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
 
@@ -25,7 +25,7 @@ abstract class ApiTestCase extends TestCase
         self::$api = new WhiseApi();
         self::$api->setApiAdapter(self::$adapter);
     }
-        
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -33,7 +33,7 @@ abstract class ApiTestCase extends TestCase
         self::$adapter->clearQueue();
         self::$adapter->debugResponses(null);
     }
-    
+
     public function queueResponse($body): void
     {
         if (!is_string($body)) {

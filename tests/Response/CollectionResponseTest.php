@@ -17,9 +17,9 @@ use Whise\Api\Response\CollectionResponse;
 
 class CollectionResponseTest extends TestCase
 {
-    static protected $responseData;
+    protected static $responseData;
 
-    static public function setUpBeforeClass(): void
+    public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
 

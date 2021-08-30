@@ -17,13 +17,13 @@ class CalendarsActionsTest extends ApiTestCase
     public function testList(): void
     {
         $endpoint = new CalendarsActions(self::$api);
-        
+
         $this->queueResponse('{
             "actions": [1, 2, 3],
             "totalCount": 3
         }');
         $items = $endpoint->list();
-        
+
         $this->assertCount(3, $items);
     }
 }

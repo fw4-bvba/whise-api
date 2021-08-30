@@ -17,13 +17,13 @@ class AdminOfficesTest extends ApiTestCase
     public function testList(): void
     {
         $endpoint = new AdminOffices(self::$api);
-        
+
         $this->queueResponse('{
             "offices": [1, 2, 3],
             "totalCount": 3
         }');
         $items = $endpoint->list();
-        
+
         $this->assertCount(3, $items);
     }
 }

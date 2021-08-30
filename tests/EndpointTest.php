@@ -16,7 +16,7 @@ class EndpointTest extends ApiTestCase
 {
     public function testFilterParameters(): void
     {
-        self::$api->debugResponses(function($response, $endpoint, $request) {
+        self::$api->debugResponses(function ($response, $endpoint, $request) {
             $request = json_decode($request, true);
             $this->assertEquals('bar', $request['Filter']['foo'] ?? null);
         });
@@ -33,7 +33,7 @@ class EndpointTest extends ApiTestCase
 
     public function testRawFilterParameters(): void
     {
-        self::$api->debugResponses(function($response, $endpoint, $request) {
+        self::$api->debugResponses(function ($response, $endpoint, $request) {
             $request = json_decode($request, true);
             $this->assertEquals('bar', $request['Filter']['foo'] ?? null);
         });
@@ -52,7 +52,7 @@ class EndpointTest extends ApiTestCase
 
     public function testAggregateFilterParameters(): void
     {
-        self::$api->debugResponses(function($response, $endpoint, $request) {
+        self::$api->debugResponses(function ($response, $endpoint, $request) {
             $request = json_decode($request, true);
             $this->assertEquals(['foo'], $request['Aggregate']['Fields'] ?? null);
         });

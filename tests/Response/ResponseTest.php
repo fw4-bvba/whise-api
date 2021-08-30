@@ -25,7 +25,7 @@ class ResponseTest extends TestCase
         $response_data = new ResponseData($input);
         $response = new Response($response_data);
         $data = $response->getData();
-        
+
         $this->assertIsArray($data);
         $this->assertCount(1, $data);
         $this->assertArrayHasKey('foo', $data);

@@ -17,13 +17,13 @@ class EstatesUsedCitiesTest extends ApiTestCase
     public function testList(): void
     {
         $endpoint = new EstatesUsedCities(self::$api);
-        
+
         $this->queueResponse('{
             "cities": [1, 2, 3],
             "totalCount": 3
         }');
         $items = $endpoint->list();
-        
+
         $this->assertCount(3, $items);
     }
 }

@@ -15,10 +15,10 @@ class File
 {
     /** @var resource */
     protected $file;
-    
+
     /** @var array */
     protected $metadata;
-    
+
     /**
      * @param string|SplFileInfo|resource File path string, or SplFileInfo
      * object, or file handle resource
@@ -45,18 +45,18 @@ class File
         } elseif (!is_resource($file)) {
             throw new \InvalidArgumentException('Whise\Api\File expects file path, resource or SplFileInfo.');
         }
-        
+
         $this->file = $file;
         $this->metadata = $metadata;
     }
-    
+
     public function __destruct()
     {
         if (is_resource($this->file)) {
             fclose($this->file);
         }
     }
-    
+
     /**
      * Get file handle resource.
      *
@@ -66,7 +66,7 @@ class File
     {
         return $this->file;
     }
-    
+
     /**
      * Get associative array containing request parameters relating to this
      * file.

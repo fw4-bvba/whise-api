@@ -15,17 +15,17 @@ abstract class Endpoint
 {
     /** @var WhiseAPI */
     protected $api;
-    
+
     public function __construct(WhiseAPI $api)
     {
         $this->api = $api;
     }
-    
+
     public function getApiAdapter(): ApiAdapter
     {
         return $this->api->getApiAdapter();
     }
-    
+
     /**
      * Check if an array is associative or sequential
      *
@@ -37,7 +37,7 @@ abstract class Endpoint
     {
         return (array_values($array) !== $array);
     }
-    
+
     /**
      * Normalize input parameters for endpoints that accept specific parameters.
      *
@@ -48,7 +48,7 @@ abstract class Endpoint
     protected function getFilterParameters(array $input): array
     {
         $fields = array_map('strtolower', array_keys($input));
-        
+
         $parameters = [];
         foreach ($input as $field => $values) {
             if (!empty($values)) {
@@ -59,13 +59,13 @@ abstract class Endpoint
                 $parameters[$field] = $values;
             }
         }
-        
+
         if (isset($parameters['Aggregate']) && !isset($parameters['Aggregate']['Fields'])) {
             $parameters['Aggregate'] = [
                 'Fields' => $parameters['Aggregate'],
             ];
         }
-        
+
         return $parameters;
     }
 }

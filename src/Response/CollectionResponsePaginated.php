@@ -70,7 +70,9 @@ class CollectionResponsePaginated extends CollectionResponse
      */
     protected function isBuffered(int $position): bool
     {
-        if (is_null($this->pageBuffer)) return false;
+        if (is_null($this->pageBuffer)) {
+            return false;
+        }
         $first_position = WhiseApi::getDefaultPageSize() * $this->pageBuffer->getPage();
         return ($position >= $first_position && $position < $first_position + $this->pageBuffer->count());
     }

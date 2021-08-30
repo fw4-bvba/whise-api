@@ -16,10 +16,10 @@ use Whise\Api\Response\CollectionResponseBufferCountless;
 
 class CollectionResponseCountlessTest extends ApiTestCase
 {
-    static protected $request;
-    static protected $pageSize;
+    protected static $request;
+    protected static $pageSize;
 
-    static public function setUpBeforeClass(): void
+    public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
 

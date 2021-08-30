@@ -22,16 +22,16 @@ class ResponseObjectTest extends TestCase
         $this->expectException(InvalidDataException::class);
         $object = new ResponseObject('test');
     }
-    
+
     public function testArrayConstructor(): void
     {
         $object = new ResponseObject([1, 2, 3]);
         $data = $object->getData();
-        
+
         $this->assertIsArray($data);
         $this->assertCount(3, $data);
     }
-    
+
     public function testTraversableConstructor(): void
     {
         $input = (object)[
@@ -39,65 +39,65 @@ class ResponseObjectTest extends TestCase
         ];
         $object = new ResponseObject($input);
         $data = $object->getData();
-        
+
         $this->assertIsArray($data);
         $this->assertCount(1, $data);
         $this->assertArrayHasKey('foo', $data);
         $this->assertIsInt($data['foo']);
     }
-    
+
     public function testMagicGet(): void
     {
         $input = (object)[
             'foo' => 10
         ];
         $object = new ResponseObject($input);
-        
+
         $this->assertEquals(10, $object->foo);
     }
-    
+
     public function testMagicSet(): void
     {
         $input = (object)[];
         $object = new ResponseObject($input);
         $object->foo = 10;
-        
+
         $this->assertEquals(10, $object->foo);
     }
-    
+
     public function testIsset(): void
     {
         $input = (object)[
             'foo' => 10
         ];
         $object = new ResponseObject($input);
-        
+
         $this->assertTrue(isset($object->foo));
         $this->assertFalse(isset($object->bar));
     }
-    
+
     public function testUnset(): void
     {
         $input = (object)[
             'foo' => 10
         ];
         $object = new ResponseObject($input);
-        
+
         $this->assertTrue(isset($object->foo));
         unset($object->foo);
         $this->assertFalse(isset($object->foo));
     }
-    
+
     public function testInvalidProperty(): void
     {
         $this->expectException(InvalidPropertyException::class);
-        
+
         $input = (object)[];
         $object = new ResponseObject($input);
-        
+
         $invalid = $object->invalid;
     }
-    
+
     public function testParsing(): void
     {
         $input = (object)[
@@ -108,14 +108,14 @@ class ResponseObjectTest extends TestCase
             'date' => '2020-01-01T12:00:00Z',
         ];
         $object = new ResponseObject($input);
-        
+
         $this->assertIsObject($object->object);
         $this->assertEquals(10, $object->object->foo);
         $this->assertIsArray($object->array);
         $this->assertCount(3, $object->array);
         $this->assertTrue($object->date instanceof DateTime);
     }
-    
+
     public function testJsonSerialize(): void
     {
         $input = (object)[
@@ -123,7 +123,7 @@ class ResponseObjectTest extends TestCase
         ];
         $object = new ResponseObject($input);
         $data = json_decode(json_encode($object), false);
-        
+
         $this->assertEquals(10, $data->foo);
     }
 }

@@ -15,13 +15,13 @@ final class Admin extends Endpoint
 {
     /** @var AdminClients */
     protected $clientsEndpoint;
-    
+
     /** @var AdminOffices */
     protected $officesEndpoint;
-    
+
     /** @var AdminRepresentatives */
     protected $representativesEndpoint;
-    
+
     /**
      * Access endpoints related to clients.
      *
@@ -34,7 +34,7 @@ final class Admin extends Endpoint
         }
         return $this->clientsEndpoint;
     }
-    
+
     /**
      * Access endpoints related to offices.
      *
@@ -47,7 +47,7 @@ final class Admin extends Endpoint
         }
         return $this->officesEndpoint;
     }
-    
+
     /**
      * Access endpoints related to representatives.
      *

@@ -16,7 +16,9 @@ abstract class Enum
      */
     protected static $constants = [];
 
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 
     /**
      * Get all possible values for this enum

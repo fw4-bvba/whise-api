@@ -13,7 +13,7 @@ class CollectionResponseIterator implements \Iterator
 {
     /** @var CollectionResponse */
     protected $response;
-    
+
     /** @var int */
     protected $position = 0;
 

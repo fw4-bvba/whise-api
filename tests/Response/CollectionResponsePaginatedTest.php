@@ -16,10 +16,10 @@ use Whise\Api\Response\CollectionResponseBuffer;
 
 class CollectionResponsePaginatedTest extends ApiTestCase
 {
-    static protected $request;
-    static protected $pageSize;
+    protected static $request;
+    protected static $pageSize;
 
-    static public function setUpBeforeClass(): void
+    public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
 

@@ -30,12 +30,14 @@ final class TestApiAdapter extends ApiAdapter
     /**
      * {@inheritdoc}
      */
-     public function requestBody(Request $request): string
+    public function requestBody(Request $request): string
     {
-		if (count($this->responseQueue) === 0) return null;
+        if (count($this->responseQueue) === 0) {
+            return null;
+        }
 
-		$response = $this->responseQueue[0];
-		array_shift($this->responseQueue);
+        $response = $this->responseQueue[0];
+        array_shift($this->responseQueue);
 
         return $response;
     }

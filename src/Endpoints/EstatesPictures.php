@@ -41,10 +41,10 @@ final class EstatesPictures extends Endpoint
         if (!is_array($files)) {
             $files = array_slice(func_get_args(), 1);
         }
-        
+
         $request = new Request('POST', 'v1/estates/pictures/upload');
         $request->setResponseKey('pictures')->requireAuthentication(true);
-        
+
         $pictures = $uploadable_files = [];
         foreach ($files as $file) {
             if (is_string($file) && is_readable($file)) {
@@ -56,19 +56,19 @@ final class EstatesPictures extends Endpoint
             $uploadable_files[] = $file;
             $pictures[] = $file->getMetadata();
         }
-        
+
         $request->addMultipart('pictures', json_encode([
             'EstateID' => $estate_id,
             'Pictures' => $pictures,
         ]));
-        
+
         foreach ($uploadable_files as $index => $file) {
             $request->addMultipart(strval($index), $file->getFileResource());
         }
-        
+
         return new CollectionResponse($this->getApiAdapter()->request($request));
     }
-    
+
     /**
      * Delete one or more photos.
      *
@@ -91,12 +91,12 @@ final class EstatesPictures extends Endpoint
         if (!is_array($photo_ids)) {
             $photo_ids = [intval($photo_ids)];
         }
-        
+
         $parameters = [
             'EstateId' => $estate_id,
             'PictureIdList' => $photo_ids,
         ];
-        
+
         $request = new Request('DELETE', 'v1/estates/pictures/delete', $parameters);
         $request->requireAuthentication(true);
         return new Response($this->getApiAdapter()->request($request));

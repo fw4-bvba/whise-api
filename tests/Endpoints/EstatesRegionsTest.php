@@ -17,13 +17,13 @@ class EstatesRegionsTest extends ApiTestCase
     public function testList(): void
     {
         $endpoint = new EstatesRegions(self::$api);
-        
+
         $this->queueResponse('{
             "regions": [1, 2, 3],
             "totalCount": 3
         }');
         $items = $endpoint->list();
-        
+
         $this->assertCount(3, $items);
     }
 }

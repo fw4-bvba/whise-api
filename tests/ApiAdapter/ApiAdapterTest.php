@@ -51,7 +51,7 @@ class ApiAdapterTest extends ApiTestCase
         $request = new Request('GET', 'endpoint', 'body');
 
         self::$adapter->queueResponse('{}');
-        self::$adapter->debugResponses(function($response_body, $endpoint, $request_body) use (&$called) {
+        self::$adapter->debugResponses(function ($response_body, $endpoint, $request_body) use (&$called) {
             $called = true;
 
             $this->assertEquals('{}', $response_body);
