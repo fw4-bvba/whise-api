@@ -15,6 +15,7 @@ use Whise\Api\Endpoints\EstatesRegions;
 use Whise\Api\Endpoints\EstatesUsedCities;
 use Whise\Api\Endpoints\EstatesPictures;
 use Whise\Api\Endpoints\EstatesDocuments;
+use Whise\Api\Endpoints\EstatesExports;
 
 class EstatesTest extends ApiTestCase
 {
@@ -111,5 +112,11 @@ class EstatesTest extends ApiTestCase
     {
         $endpoint = new Estates(self::$api);
         $this->assertTrue($endpoint->documents() instanceof EstatesDocuments);
+    }
+
+    public function testExports(): void
+    {
+        $endpoint = new Estates(self::$api);
+        $this->assertTrue($endpoint->exports() instanceof EstatesExports);
     }
 }

@@ -31,6 +31,9 @@ final class Estates extends Endpoint
     /** @var EstatesDocuments */
     protected $documentsEndpoint;
 
+    /** @var EstatesExports */
+    protected $exportsEndpoint;
+
     /**
      * Request a list of real estate properties and/or projects.
      *
@@ -224,5 +227,18 @@ final class Estates extends Endpoint
             $this->documentsEndpoint = new EstatesDocuments($this->api);
         }
         return $this->documentsEndpoint;
+    }
+
+    /**
+     * Access endpoints related to media exports.
+     *
+     * @return EstatesExports
+     */
+    public function exports(): EstatesExports
+    {
+        if (is_null($this->exportsEndpoint)) {
+            $this->exportsEndpoint = new EstatesExports($this->api);
+        }
+        return $this->exportsEndpoint;
     }
 }

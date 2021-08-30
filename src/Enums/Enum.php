@@ -16,6 +16,9 @@ abstract class Enum
      */
     protected static $constants = [];
 
+    /**
+     * @codeCoverageIgnore
+     */
     private function __construct()
     {
     }
