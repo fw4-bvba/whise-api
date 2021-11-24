@@ -138,10 +138,10 @@ final class Contacts extends Endpoint
 
 
     /**
-     * Create of update a contact. When a contact already exists with the same
+     * Create or update a contact. When a contact already exists with the same
      * PrivateEmail value, the API will update the existing contact instead.
      *
-     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Contacts_CreateContact
+     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Contacts_UpsertContact
      * Official documentation
      *
      * @param array $parameters Associative array containing request parameters
