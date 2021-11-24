@@ -68,6 +68,16 @@ class CalendarsTest extends ApiTestCase
         $this->assertEquals('bar', $response->foo);
     }
 
+    public function testUpsert(): void
+    {
+        $endpoint = new Calendars(self::$api);
+
+        $this->queueResponse('{"foo": "bar"}');
+        $response = $endpoint->upsert([]);
+
+        $this->assertEquals('bar', $response->foo);
+    }
+
     public function testActions(): void
     {
         $endpoint = new Calendars(self::$api);

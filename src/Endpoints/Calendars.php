@@ -141,6 +141,30 @@ final class Calendars extends Endpoint
         $request->requireAuthentication(true);
         return new Response($this->getApiAdapter()->request($request));
     }
+
+    /**
+     * Create a new appointment or insert new contacts into an existing one.
+     *
+     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Calendars_UpsertCalendar
+     * Official documentation
+     *
+     * @param array $parameters Associative array containing request parameters
+     *
+     * @throws Exception\InvalidRequestException if the API rejects the request
+     * due to invalid input
+     * @throws Exception\AuthException if access is denied
+     * @throws Exception\AuthException if access token is missing or invalid
+     * @throws Exception\ApiException if a server-side error occurred
+     *
+     * @return Response
+     */
+    public function upsert(array $parameters): Response
+    {
+        $request = new Request('POST', 'v1/calendars/upsert', $parameters);
+        $request->requireAuthentication(true);
+        return new Response($this->getApiAdapter()->request($request));
+    }
+
     /**
      * Access endpoints related to calendar event types.
      *
