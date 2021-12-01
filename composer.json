@@ -5,12 +5,12 @@
     "keywords": ["whise", "api", "sdk"],
     "license": "MIT",
     "require": {
-        "php": "^7.4|^8.0",
-        "guzzlehttp/guzzle": "~6.0",
+        "php": "^7.4|^8.0|^8.1",
+        "guzzlehttp/guzzle": "~6.0|~7.0",
         "ocramius/package-versions": "^2.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.4|^9.0",
+        "phpunit/phpunit": "^9.0",
         "cache/array-adapter": "^1.1"
     },
     "autoload": {
