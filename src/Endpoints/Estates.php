@@ -34,6 +34,9 @@ final class Estates extends Endpoint
     /** @var EstatesExports */
     protected $exportsEndpoint;
 
+    /** @var EstatesOwned */
+    protected $ownedEndpoint;
+
     /**
      * Request a list of real estate properties and/or projects.
      *
@@ -240,5 +243,18 @@ final class Estates extends Endpoint
             $this->exportsEndpoint = new EstatesExports($this->api);
         }
         return $this->exportsEndpoint;
+    }
+
+    /**
+     * Access endpoints related to estate ownership.
+     *
+     * @return EstatesOwned
+     */
+    public function owned(): EstatesOwned
+    {
+        if (is_null($this->ownedEndpoint)) {
+            $this->ownedEndpoint = new EstatesOwned($this->api);
+        }
+        return $this->ownedEndpoint;
     }
 }

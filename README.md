@@ -59,6 +59,7 @@ $api->estates()->documents()->upload($estate_id, $file);
 $api->estates()->documents()->delete($estate_id, $document_id);
 $api->estates()->exports()->list($office_id, $parameters);
 $api->estates()->exports()->changeStatus($estate_id, $export_status, $id_in_media, $export_message);
+$api->estates()->owned()->list($username, $password, $filter, $sorting, $fields);
 ```
 
 #### Contacts
