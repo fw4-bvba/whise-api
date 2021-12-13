@@ -204,12 +204,15 @@ final class WhiseApi
     *
     * @return Response
     */
-    public function requestClientToken(int $clientId, int $officeId): Response
+    public function requestClientToken(int $clientId, ?int $officeId = null): Response
     {
-        return $this->admin()->clients()->token([
+        $parameters = [
             'ClientId' => $clientId,
-            'OfficeId' => $officeId,
-        ]);
+        ];
+        if (isset($officeId)) {
+            $parameters['OfficeId'] = $officeId;
+        }
+        return $this->admin()->clients()->token($parameters);
     }
 
     // Api adapter
