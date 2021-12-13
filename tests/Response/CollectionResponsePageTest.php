@@ -54,7 +54,7 @@ class CollectionResponsePageTest extends ApiTestCase
 
     public function testGetPageCount(): void
     {
-        $page = $this->getResponse([1, 2, 3], 12)->page(0, 3);
+        $page = $this->getResponse(array_fill(0, 12, 1), 12)->page(0, 3);
 
         $this->assertEquals($page->getPageCount(), 4);
     }

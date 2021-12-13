@@ -19,7 +19,7 @@ class ContactsTitlesTest extends ApiTestCase
         $endpoint = new ContactsTitles(self::$api);
 
         $this->queueResponse('{
-            "titles": [1, 2, 3],
+            "contactTitles": [1, 2, 3],
             "totalCount": 3
         }');
         $items = $endpoint->list();

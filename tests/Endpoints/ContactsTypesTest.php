@@ -19,7 +19,7 @@ class ContactsTypesTest extends ApiTestCase
         $endpoint = new ContactsTypes(self::$api);
 
         $this->queueResponse('{
-            "types": [1, 2, 3],
+            "contactTypes": [1, 2, 3],
             "totalCount": 3
         }');
         $items = $endpoint->list();

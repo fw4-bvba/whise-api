@@ -19,7 +19,7 @@ class CalendarsActionsTest extends ApiTestCase
         $endpoint = new CalendarsActions(self::$api);
 
         $this->queueResponse('{
-            "actions": [1, 2, 3],
+            "calendarActions": [1, 2, 3],
             "totalCount": 3
         }');
         $items = $endpoint->list();

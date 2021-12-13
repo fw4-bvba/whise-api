@@ -19,7 +19,7 @@ class ContactsOriginsTest extends ApiTestCase
         $endpoint = new ContactsOrigins(self::$api);
 
         $this->queueResponse('{
-            "origins": [1, 2, 3],
+            "contactOrigins": [1, 2, 3],
             "totalCount": 3
         }');
         $items = $endpoint->list();
