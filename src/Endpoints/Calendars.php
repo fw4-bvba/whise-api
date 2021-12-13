@@ -48,6 +48,19 @@ final class Calendars extends Endpoint
         ?array $field = null,
         ?array $aggregate = null
     ): CollectionResponse {
+
+        // Whise does not consistently sort calendar items in the response by default,
+        // causing issues with pagination. We'll set a default sorting order to prevent this.
+        if (is_null($sort)) {
+            $sort = [[
+                'Field' => 'startDateTime',
+                'Ascending' => true,
+            ],[
+                'Field' => 'id',
+                'Ascending' => true,
+            ]];
+        }
+
         $parameters = $this->getFilterParameters([
             'Filter' => $filter,
             'Sort' => $sort,
