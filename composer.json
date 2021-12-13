@@ -22,7 +22,7 @@
     "scripts": {
         "test": "@php ./vendor/bin/phpunit --colors",
         "test-coverage": "@php ./vendor/bin/phpunit --colors --coverage-html ./coverage",
-		"phpinfo": "@php -i"
+        "phpinfo": "@php -i"
     },
     "config": {
         "optimize-autoloader": true
