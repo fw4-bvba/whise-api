@@ -19,7 +19,7 @@ final class EstatesUsedCities extends Endpoint
     /**
      * Request a list of cities in use.
      *
-     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Estates_GetRegions
+     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Estates_GetUsedCities
      * Official documentation
      *
      * @param array $estate_filter Associative array containing estate filter
@@ -40,7 +40,7 @@ final class EstatesUsedCities extends Endpoint
         ]);
 
         $request = new CollectionRequest('POST', 'v1/estates/usedcities/list', $parameters);
-        $request->setResponseKey('usedcities')->requireAuthentication(true)->allowGreedyCache(true);
+        $request->setResponseKey('cities')->requireAuthentication(true)->allowGreedyCache(true);
         return new CollectionResponsePaginated($request, $this->getApiAdapter());
     }
 }
