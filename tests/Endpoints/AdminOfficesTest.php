@@ -26,4 +26,32 @@ class AdminOfficesTest extends ApiTestCase
 
         $this->assertCount(3, $items);
     }
+
+    public function testConsistentTotalCount(): void
+    {
+        $endpoint = new AdminOffices(self::$api);
+
+        $this->queueResponse([
+            'offices' => array_fill(0, 3, 1),
+            'totalCount' => 100
+        ]);
+        $items = $endpoint->list();
+
+        $this->assertCount(100, $items);
+    }
+
+    public function testInconsistentTotalCount(): void
+    {
+        $endpoint = new AdminOffices(self::$api);
+
+        $this->queueResponse([
+            'offices' => array_fill(0, 3, 1),
+            'totalCount' => 100
+        ]);
+        $page = $endpoint->list([
+            'OfficeIds' => [1, 2, 3],
+        ]);
+
+        $this->assertCount(3, $page);
+    }
 }

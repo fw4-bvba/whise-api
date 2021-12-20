@@ -19,7 +19,7 @@ final class AdminOffices extends Endpoint
     /**
      * Request a list of activated offices.
      *
-     * @link http://api.whise.eu/SystemIntegrator.html#operation/Admin_GetOffices
+     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Admin_GetOffices
      * Official documentation
      *
      * @param array $parameters Associative array containing request parameters
@@ -36,6 +36,23 @@ final class AdminOffices extends Endpoint
     {
         $request = new CollectionRequest('POST', 'v1/admin/offices/list', $parameters);
         $request->setResponseKey('offices')->requireAuthentication(true)->allowGreedyCache(true);
-        return new CollectionResponsePaginated($request, $this->getApiAdapter());
+
+        // Check if OfficeIds parameter is present and not empty
+        $has_office_ids = false;
+        if (isset($parameters)) {
+            foreach (array_keys($parameters) as $parameter_key) {
+                if (strtolower($parameter_key) === 'officeids') {
+                    $has_office_ids = is_array($parameters[$parameter_key]) && count($parameters[$parameter_key]);
+                    break;
+                }
+            }
+        }
+
+        // Endpoint does not support pagination if OfficeIds parameter is used
+        if ($has_office_ids) {
+            return new CollectionResponse($this->getApiAdapter()->request($request));
+        } else {
+            return new CollectionResponsePaginated($request, $this->getApiAdapter());
+        }
     }
 }
