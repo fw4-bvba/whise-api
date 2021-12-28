@@ -13,7 +13,7 @@ final class EnvironmentType extends Enum
 {
     const Countryside          = 51;
     const Quiet                = 52;
-    const Woords               = 53;
+    const Woods               = 53;
     const City                 = 54;
     const CityCenter           = 55;
     const Suburb               = 56;
