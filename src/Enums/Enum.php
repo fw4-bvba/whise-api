@@ -24,16 +24,26 @@ abstract class Enum
     }
 
     /**
-     * Get all possible values for this enum
+     * Get all possible values for this enum, with names as keys
      *
      * @return array Associative array with constant name as key and its value
      */
-    public static function all(): array
+    public static function assoc(): array
     {
         $classname = get_called_class();
         if (!array_key_exists($classname, static::$constants)) {
             static::$constants[$classname] = (new \ReflectionClass($classname))->getConstants();
         }
         return static::$constants[$classname];
+    }
+
+    /**
+     * Get all possible values for this enum
+     *
+     * @return array Array of values
+     */
+    public static function all(): array
+    {
+        return array_values(self::assoc());
     }
 }
