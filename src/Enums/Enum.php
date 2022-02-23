@@ -17,6 +17,11 @@ abstract class Enum
     protected static $constants = [];
 
     /**
+     * @var array
+     */
+    protected static $values = [];
+
+    /**
      * @codeCoverageIgnore
      */
     private function __construct()
@@ -44,6 +49,14 @@ abstract class Enum
      */
     public static function all(): array
     {
-        return array_values(self::assoc());
+        $classname = get_called_class();
+        if (!array_key_exists($classname, static::$values)) {
+            static::$values[$classname] = [];
+            $assoc = self::assoc();
+            array_walk_recursive($assoc, function ($value) use ($classname) {
+                static::$values[$classname][] = $value;
+            });
+        }
+        return static::$values[$classname];
     }
 }

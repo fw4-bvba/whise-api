@@ -7,10 +7,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Whise\Api\Enums;
+namespace Whise\Api\Enums\Details;
 
+use Whise\Api\Enums\Enum;
+
+/**
+ * Enum containing values for subdetails of type 2223
+ */
 final class FloodAreaType extends Enum
 {
-    const FloodArea = 1231;
+    const FloodArea  = 1231;
     const Riverside  = 1232;
 }
