@@ -67,6 +67,7 @@ class CollectionResponse implements \Countable, \IteratorAggregate, \ArrayAccess
         return $offset >= 0 && $offset < $this->count();
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         if (!$this->offsetExists($offset)) {
@@ -92,7 +93,7 @@ class CollectionResponse implements \Countable, \IteratorAggregate, \ArrayAccess
     }
 
     /* JsonSerializable implementation */
-
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return $this->data;
