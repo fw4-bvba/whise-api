@@ -100,23 +100,56 @@ class CollectionResponsePaginated extends CollectionResponse
     }
 
     /**
-     * @codeCoverageIgnore
+     * Get the current page buffer, or fetch the initial one
+     *
+     * @return CollectionResponsePage
      */
-    public function __debugInfo(): array
+    protected function getCurrentPageBuffer(): CollectionResponsePage
     {
         if (is_null($this->pageBuffer)) {
             $this->bufferPage(0);
         }
-        return $this->pageBuffer->__debugInfo();
+        return $this->pageBuffer;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function __debugInfo(): array
+    {
+        return $this->getCurrentPageBuffer()->__debugInfo();
     }
 
     /* Countable implementation */
 
     public function count(): int
     {
-        if (is_null($this->pageBuffer)) {
-            $this->bufferPage(0);
-        }
-        return $this->pageBuffer->getTotalCount() ?? 0;
+        return $this->getCurrentPageBuffer()->getTotalCount() ?? 0;
+    }
+
+    /* Metadata */
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getMetadata(): array
+    {
+        return $this->getCurrentPageBuffer()->getMetadata();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function metadata(string $property)
+    {
+        return $this->getCurrentPageBuffer()->metadata($property);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function hasMetadata(string $property): bool
+    {
+        return $this->getCurrentPageBuffer()->hasMetadata($property);
     }
 }

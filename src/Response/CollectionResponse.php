@@ -15,6 +15,7 @@ use Whise\Api\Request\CollectionRequest;
 class CollectionResponse implements \Countable, \IteratorAggregate, \ArrayAccess, \JsonSerializable, CacheInterface
 {
     use CacheTrait;
+    use MetadataTrait;
 
     /** @var array */
     protected $data;
@@ -22,6 +23,7 @@ class CollectionResponse implements \Countable, \IteratorAggregate, \ArrayAccess
     public function __construct(ResponseData $data)
     {
         $this->data = array_values($data->getData());
+        $this->setMetadata($data->getMetadata());
         $this->transferCacheAttributes($data);
     }
 

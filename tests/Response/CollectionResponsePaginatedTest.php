@@ -47,6 +47,22 @@ class CollectionResponsePaginatedTest extends ApiTestCase
         $this->assertEquals(1, $response->get(self::$pageSize));
     }
 
+    public function testMetadata(): void
+    {
+        $this->queueResponse([
+            'data' => [1, 2, 3],
+            'totalCount' => 3,
+            'metadataProperty' => 'foo',
+        ]);
+
+        $response = new CollectionResponsePaginated(self::$request, self::$adapter);
+
+        $this->assertEquals('foo', $response->metadata('metadataProperty'));
+        $this->assertTrue($response->hasMetadata('metadataProperty'));
+        $this->assertFalse($response->hasMetadata('invalid'));
+        $this->assertIsArray($response->getMetadata());
+    }
+
     protected function queuePageResponse($data, ?int $count = null): void
     {
         $this->queueResponse([

@@ -9,16 +9,13 @@
 
 namespace Whise\Api\Response;
 
-use Whise\Api\Exception\InvalidPropertyException;
 use Whise\Api\Exception\InvalidDataException;
 use Whise\Api\ApiAdapter\ApiAdapter;
 
 class ResponseData extends ResponseObject implements CacheInterface
 {
     use CacheTrait;
-
-    /** @var array */
-    protected $_metadata = [];
+    use MetadataTrait;
 
     public function __construct($data, $metadata = null)
     {
@@ -29,47 +26,8 @@ class ResponseData extends ResponseObject implements CacheInterface
                 throw new InvalidDataException('ResponseData does not accept metadata of type "' . gettype($data) . '"');
             }
             foreach ($metadata as $property => &$value) {
-                $this->_metadata[$property] = $this->parseValue($value, $property);
+                $this->addMetadata($property, $this->parseValue($value, $property));
             }
         }
-    }
-
-    /**
-     * Get all metadata from this response.
-     *
-     * @return array
-     */
-    public function getMetadata(): array
-    {
-        return $this->_metadata;
-    }
-
-    /**
-     * Get specific metadata from this response.
-     *
-     * @param string $property
-     *
-     * @throws InvalidPropertyException if the metadata does not exist
-     *
-     * @return string
-     */
-    public function metadata(string $property)
-    {
-        if (!$this->hasMetadata($property)) {
-            throw new InvalidPropertyException($property . ' is not valid metadata of ' . static::class);
-        }
-        return $this->_metadata[$property];
-    }
-
-    /**
-     * Checks if this response has specific metadata.
-     *
-     * @param string $property
-     *
-     * @return bool True if metadata exists
-     */
-    public function hasMetadata(string $property): bool
-    {
-        return array_key_exists($property, $this->_metadata);
     }
 }

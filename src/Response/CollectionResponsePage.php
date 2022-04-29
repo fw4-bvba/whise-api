@@ -29,8 +29,8 @@ class CollectionResponsePage extends CollectionResponse
         $this->page = $page;
         $this->pageSize = $page_size;
 
-        if ($data->hasMetadata('totalCount')) {
-            $this->totalCount = $data->metadata('totalCount');
+        if ($this->hasMetadata('totalCount')) {
+            $this->totalCount = $this->metadata('totalCount');
         }
     }
 
