@@ -12,7 +12,6 @@ namespace Whise\Api\Endpoints;
 use Whise\Api\Endpoint;
 use Whise\Api\Request\CollectionRequest;
 use Whise\Api\Response\CollectionResponse;
-use Whise\Api\Response\CollectionResponsePaginated;
 
 final class EstatesUsedCities extends Endpoint
 {
@@ -41,6 +40,6 @@ final class EstatesUsedCities extends Endpoint
 
         $request = new CollectionRequest('POST', 'v1/estates/usedcities/list', $parameters);
         $request->setResponseKey('cities')->requireAuthentication(true)->allowGreedyCache(true);
-        return new CollectionResponsePaginated($request, $this->getApiAdapter());
+        return new CollectionResponse($this->getApiAdapter()->request($request));
     }
 }
