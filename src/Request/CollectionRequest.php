@@ -25,6 +25,9 @@ class CollectionRequest extends Request
      */
     public function getBody(): ?string
     {
+        if (is_null($this->body)) {
+            $this->body = [];
+        }
         if (is_array($this->body)) {
             if (!isset($this->body['Page'])) {
                 $this->body['Page'] = [];
