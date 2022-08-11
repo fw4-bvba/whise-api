@@ -47,6 +47,19 @@ class CollectionResponsePaginatedTest extends ApiTestCase
         $this->assertEquals(1, $response->get(self::$pageSize));
     }
 
+    public function testRequestBody(): void
+    {
+        $this->queueFillerPages(self::$pageSize * 2);
+
+        $response = new CollectionResponsePaginated(self::$request, self::$adapter);
+
+        self::$adapter->debugResponses(function ($response_body, $endpoint, $request_body) {
+            $this->assertEquals('{"Page":{"Limit":50,"Offset":50}}', $request_body);
+        });
+
+        $response->get(self::$pageSize);
+    }
+
     public function testMetadata(): void
     {
         $this->queueResponse([
