@@ -95,8 +95,8 @@ abstract class ApiAdapter
         $response = json_decode($response_body, false);
 
         // Check if request was valid
-        if (isset($response->isValidRequest)) {
-            if (!$response->isValidRequest) {
+        if (isset($response->isValidRequest) || !empty($response->validationErrors)) {
+            if (empty($response->isValidRequest)) {
                 if (!empty($response->validationErrors)) {
                     $message = implode(' ', array_filter(array_map(function ($error) {
                         return $error->message ?? '';

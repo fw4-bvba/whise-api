@@ -45,6 +45,21 @@ class ApiAdapterTest extends ApiTestCase
         $response = self::$adapter->request($request);
     }
 
+    public function testValidationErrors(): void
+    {
+        $request = new Request('GET', '');
+
+        $this->expectException(InvalidRequestException::class);
+        $this->expectExceptionMessage('test');
+
+        self::$adapter->queueResponse('{
+            "validationErrors": [
+                {"message": "test"}
+            ]
+        }');
+        $response = self::$adapter->request($request);
+    }
+
     public function testDebugCallable(): void
     {
         $called = false;
