@@ -29,6 +29,10 @@ final class EstatesExports extends Endpoint
      * estate agent) data
      * @param bool $reset Pass true to retrieve all estates, regardless of
      * export status (rate-limited to once per office per day)
+     * @param array $language_ids For the fields that contain data translated in
+     * multiple languages, only the value(s) corresponding to the given
+     * language(s) will be returned. If no language is selected, client's
+     * default language / English will be taken by default.
      *
      * @throws Exception\InvalidRequestException if the API rejects the request
      * due to invalid input
@@ -38,7 +42,7 @@ final class EstatesExports extends Endpoint
      *
      * @return CollectionResponse Traversable collection of items
      */
-    public function list(int $office_id, ?bool $show_representatives = null, ?bool $reset = null): CollectionResponse
+    public function list(int $office_id, ?bool $show_representatives = null, ?bool $reset = null, ?array $language_ids = null): CollectionResponse
     {
         $parameters = [
             'OfficeId' => $office_id,
@@ -50,6 +54,10 @@ final class EstatesExports extends Endpoint
 
         if (!is_null($reset)) {
             $parameters['IsReset'] = $reset;
+        }
+
+        if (!is_null($language_ids)) {
+            $parameters['LanguageIds'] = $language_ids;
         }
 
         $request = new CollectionRequest('POST', 'v1/estates/exports/list', $parameters);

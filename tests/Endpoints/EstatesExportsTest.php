@@ -31,10 +31,11 @@ class EstatesExportsTest extends ApiTestCase
                 'OfficeId' => 123,
                 'ShowRepresentatives' => false,
                 'IsReset' => true,
+                'LanguageIds' => ['nl-BE'],
             ], $request);
         });
 
-        $items = $endpoint->list(123, false, true);
+        $items = $endpoint->list(123, false, true, ['nl-BE']);
 
         $this->assertCount(3, $items);
     }
