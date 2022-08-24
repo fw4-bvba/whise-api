@@ -62,7 +62,7 @@ class EstatesTest extends ApiTestCase
         }');
         $items = $endpoint->list([
             'EstateIds' => [1, 2, 3],
-        ],[
+        ], [
             [
                 'Field' => 'Price',
                 'Ascending' => true,
@@ -99,7 +99,7 @@ class EstatesTest extends ApiTestCase
         }');
         $items = $endpoint->list([
             'EstateIds' => [1, 2, 3],
-        ],[
+        ], [
             'Field' => 'Price',
             'Ascending' => true,
         ])->offsetExists(0);
