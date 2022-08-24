@@ -44,7 +44,8 @@ final class Estates extends Endpoint
      * Official documentation
      *
      * @param array $filter Associative array containing filter parameters
-     * @param array $sort Associative array containing sorting parameters
+     * @param array $sort Array containing associative arrays with sorting
+     * parameters
      * @param array $field Associative array containing parameters relating to
      * which fields to include or exclude
      *
@@ -58,6 +59,11 @@ final class Estates extends Endpoint
      */
     public function list(?array $filter = null, ?array $sort = null, ?array $field = null): CollectionResponse
     {
+        // Check if $sort is associative, and enclose it in an array if it is
+        if (is_array($sort) && count(array_intersect(array_map('strtolower', array_keys($sort)), ['field', 'ascending']))) {
+            $sort = [$sort];
+        }
+
         $parameters = $this->getFilterParameters([
             'Filter' => $filter,
             'Sort' => $sort,

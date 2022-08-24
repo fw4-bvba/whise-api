@@ -33,6 +33,78 @@ class EstatesTest extends ApiTestCase
         $this->assertCount(3, $items);
     }
 
+    public function testListSort(): void
+    {
+        self::$api->debugResponses(function ($response, $endpoint, $request) {
+            $request = json_decode($request, true);
+            $this->assertEquals([
+                'Filter' => [
+                    'EstateIds' => [1,2,3]
+                ],
+                'Sort' => [
+                    [
+                        'Field' => 'Price',
+                        'Ascending' => true
+                    ]
+                ],
+                'Page' => [
+                    'Limit' => 50,
+                    'Offset' => 0
+                ]
+            ], $request);
+        });
+
+        $endpoint = new Estates(self::$api);
+
+        $this->queueResponse('{
+            "estates": [1, 2, 3],
+            "totalCount": 3
+        }');
+        $items = $endpoint->list([
+            'EstateIds' => [1, 2, 3],
+        ],[
+            [
+                'Field' => 'Price',
+                'Ascending' => true,
+            ]
+        ])->offsetExists(0);
+    }
+
+    public function testListAssociativeSort(): void
+    {
+        self::$api->debugResponses(function ($response, $endpoint, $request) {
+            $request = json_decode($request, true);
+            $this->assertEquals([
+                'Filter' => [
+                    'EstateIds' => [1,2,3]
+                ],
+                'Sort' => [
+                    [
+                        'Field' => 'Price',
+                        'Ascending' => true
+                    ]
+                ],
+                'Page' => [
+                    'Limit' => 50,
+                    'Offset' => 0
+                ]
+            ], $request);
+        });
+
+        $endpoint = new Estates(self::$api);
+
+        $this->queueResponse('{
+            "estates": [1, 2, 3],
+            "totalCount": 3
+        }');
+        $items = $endpoint->list([
+            'EstateIds' => [1, 2, 3],
+        ],[
+            'Field' => 'Price',
+            'Ascending' => true,
+        ])->offsetExists(0);
+    }
+
     public function testGet(): void
     {
         $endpoint = new Estates(self::$api);
