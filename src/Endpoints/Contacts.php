@@ -108,6 +108,8 @@ final class Contacts extends Endpoint
      */
     public function update(array $parameters): Response
     {
+        $parameters = $this->normalizeSearchCriteria($parameters);
+
         $request = new Request('PATCH', 'v1/contacts/update', $parameters);
         $request->requireAuthentication(true);
         return new Response($this->getApiAdapter()->request($request));
@@ -131,6 +133,8 @@ final class Contacts extends Endpoint
      */
     public function create(array $parameters): Response
     {
+        $parameters = $this->normalizeSearchCriteria($parameters);
+
         $request = new Request('POST', 'v1/contacts/create', $parameters);
         $request->requireAuthentication(true);
         return new Response($this->getApiAdapter()->request($request));
@@ -156,6 +160,8 @@ final class Contacts extends Endpoint
      */
     public function upsert(array $parameters): Response
     {
+        $parameters = $this->normalizeSearchCriteria($parameters);
+
         $request = new Request('POST', 'v1/contacts/upsert', $parameters);
         $request->requireAuthentication(true);
         return new Response($this->getApiAdapter()->request($request));
@@ -196,6 +202,28 @@ final class Contacts extends Endpoint
         $request = new Request('DELETE', 'v1/contacts/delete', $parameters);
         $request->requireAuthentication(true);
         return new Response($this->getApiAdapter()->request($request));
+    }
+
+    /**
+     * Parse contact parameters and make sure that SearchCriteria is an indexed
+     * array.
+     *
+     * @param array $parameters Associative array containing request parameters
+     *
+     * @return array
+     */
+    protected function normalizeSearchCriteria(array $parameters): array
+    {
+        // Case insensitive parameter key check without modifying casing
+        foreach ($parameters as $key => &$value) {
+            if (strtolower($key) === 'searchcriteria') {
+                if (is_array($value) && $this->arrayIsAssociative($value)) {
+                    $parameters[$key] = [$value];
+                }
+                break;
+            }
+        }
+        return $parameters;
     }
 
     /**

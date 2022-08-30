@@ -108,6 +108,46 @@ class ContactsTest extends ApiTestCase
         $this->assertEquals('bar', $response->foo);
     }
 
+    public function testNormalizeSearchCriteria(): void
+    {
+        self::$api->debugResponses(function ($response, $endpoint, $request) {
+            $request = json_decode($request, true);
+            $this->assertEquals('bar', $request['SearchCriteria'][0]['foo']);
+        });
+
+        $endpoint = new Contacts(self::$api);
+
+        $this->queueResponse('{"foo": "bar"}');
+        $response = $endpoint->upsert([
+            'SearchCriteria' => [
+                'foo' => 'bar'
+            ]
+        ]);
+
+        $this->queueResponse('{"foo": "bar"}');
+        $response = $endpoint->create([
+            'SearchCriteria' => [
+                'foo' => 'bar'
+            ]
+        ]);
+
+        $this->queueResponse('{"foo": "bar"}');
+        $response = $endpoint->update([
+            'SearchCriteria' => [
+                'foo' => 'bar'
+            ]
+        ]);
+
+        $this->queueResponse('{"foo": "bar"}');
+        $response = $endpoint->update([
+            'SearchCriteria' => [
+                [
+                    'foo' => 'bar'
+                ]
+            ]
+        ]);
+    }
+
     public function testOrigins(): void
     {
         $endpoint = new Contacts(self::$api);
