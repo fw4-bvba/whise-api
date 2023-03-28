@@ -11,5 +11,4 @@ namespace Whise\Api\Exception;
 
 class InvalidPropertyException extends \Exception
 {
-
 }

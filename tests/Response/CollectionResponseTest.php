@@ -10,8 +10,6 @@
 namespace Whise\Api\Tests\Response;
 
 use PHPUnit\Framework\TestCase;
-use Whise\Api\Exception\InvalidDataException;
-use Whise\Api\Exception\InvalidPropertyException;
 use Whise\Api\Response\ResponseData;
 use Whise\Api\Response\CollectionResponse;
 

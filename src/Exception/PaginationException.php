@@ -11,5 +11,4 @@ namespace Whise\Api\Exception;
 
 class PaginationException extends \Exception
 {
-
 }

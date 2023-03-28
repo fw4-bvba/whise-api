@@ -9,9 +9,6 @@
 
 namespace Whise\Api\Response;
 
-use Whise\Api\Request\Request;
-use Whise\Api\Request\CollectionRequest;
-
 class CollectionResponseCountless extends CollectionResponsePaginated
 {
     /** @var int */
