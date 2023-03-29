@@ -10,8 +10,9 @@
 namespace Whise\Api\Request;
 
 use DateTime;
+use JsonSerializable;
 
-class Request
+class Request implements JsonSerializable
 {
     /** @var string */
     protected $method;
@@ -311,5 +312,12 @@ class Request
     public function getCacheKey(): string
     {
         return $this->endpoint . json_encode($this->getParameters()) . $this->getBody();
+    }
+
+    /* JsonSerializable implementation */
+    #[\ReturnTypeWillChange]
+    public function jsonSerialize()
+    {
+        return $this->getBody();
     }
 }

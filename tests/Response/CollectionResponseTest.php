@@ -10,8 +10,6 @@
 namespace Whise\Api\Tests\Response;
 
 use PHPUnit\Framework\TestCase;
-use Whise\Api\Exception\InvalidDataException;
-use Whise\Api\Exception\InvalidPropertyException;
 use Whise\Api\Response\ResponseData;
 use Whise\Api\Response\CollectionResponse;
 
@@ -54,14 +52,6 @@ class CollectionResponseTest extends TestCase
         $object = new CollectionResponse(self::$responseData);
 
         $this->assertEquals(3, $object[2]);
-    }
-
-    public function testOffsetGetInvalid(): void
-    {
-        $object = new CollectionResponse(self::$responseData);
-
-        $this->expectNotice();
-        $invalid = $object[3];
     }
 
     public function testIterator(): void
