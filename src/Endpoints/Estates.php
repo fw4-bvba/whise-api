@@ -95,6 +95,7 @@ final class Estates extends Endpoint
             'EstateIds' => [$id],
             'StatusIds' => Enums\Status::all(),
             'DisplayStatusIds' => Enums\DisplayStatus::all(),
+            'IncludeGroupEstates' => true,
         ], $filter), null, $field)->page(0, 1);
 
         if (isset($estates[0])) {

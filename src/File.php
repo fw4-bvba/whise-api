@@ -9,8 +9,6 @@
 
 namespace Whise\Api;
 
-use Whise\Api\ApiAdapter\ApiAdapter;
-
 class File
 {
     /** @var resource */

@@ -10,9 +10,7 @@
 namespace Whise\Api\Endpoints;
 
 use Whise\Api\Endpoint;
-use Whise\Api\Request\Request;
 use Whise\Api\Request\CollectionRequest;
-use Whise\Api\Response\Response;
 use Whise\Api\Response\CollectionResponse;
 use Whise\Api\Response\CollectionResponseCountless;
 
