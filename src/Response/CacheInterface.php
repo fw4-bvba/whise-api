@@ -11,5 +11,4 @@ namespace Whise\Api\Response;
 
 interface CacheInterface
 {
-
 }

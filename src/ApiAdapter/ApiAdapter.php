@@ -10,7 +10,6 @@
 namespace Whise\Api\ApiAdapter;
 
 use Whise\Api\Request\Request;
-use Whise\Api\Response\ResponseObject;
 use Whise\Api\Response\ResponseData;
 use Whise\Api\Exception;
 use Psr\Cache\CacheItemPoolInterface;
@@ -130,7 +129,7 @@ abstract class ApiAdapter
                 $cache_item->set($response_body);
                 if ($this->cacheTtl === 0) {
                     $cache_item->expiresAfter(null);
-                } else if ($this->cacheTtl instanceof \DateTimeInterface) {
+                } elseif ($this->cacheTtl instanceof \DateTimeInterface) {
                     $cache_item->expiresAt($this->cacheTtl);
                 } else {
                     $cache_item->expiresAfter($this->cacheTtl);

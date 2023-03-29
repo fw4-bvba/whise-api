@@ -10,7 +10,6 @@
 namespace Whise\Api\Response;
 
 use Whise\Api\Exception\InvalidDataException;
-use Whise\Api\ApiAdapter\ApiAdapter;
 
 class ResponseData extends ResponseObject implements CacheInterface
 {
