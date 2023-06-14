@@ -17,6 +17,7 @@ use Whise\Api\Endpoints\EstatesPictures;
 use Whise\Api\Endpoints\EstatesDocuments;
 use Whise\Api\Endpoints\EstatesExports;
 use Whise\Api\Endpoints\EstatesOwned;
+use Whise\Api\Endpoints\EstatesDetails;
 
 class EstatesTest extends ApiTestCase
 {
@@ -197,5 +198,11 @@ class EstatesTest extends ApiTestCase
     {
         $endpoint = new Estates(self::$api);
         $this->assertTrue($endpoint->owned() instanceof EstatesOwned);
+    }
+
+    public function testDetails(): void
+    {
+        $endpoint = new Estates(self::$api);
+        $this->assertTrue($endpoint->details() instanceof EstatesDetails);
     }
 }
