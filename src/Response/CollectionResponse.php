@@ -9,6 +9,8 @@
 
 namespace Whise\Api\Response;
 
+use InvalidArgumentException;
+
 class CollectionResponse implements \Countable, \IteratorAggregate, \ArrayAccess, \JsonSerializable, CacheInterface
 {
     use CacheTrait;
@@ -70,7 +72,7 @@ class CollectionResponse implements \Countable, \IteratorAggregate, \ArrayAccess
     public function offsetGet($offset)
     {
         if (!$this->offsetExists($offset)) {
-            trigger_error('Undefined offset: ' . $offset);
+            throw new InvalidArgumentException('Undefined offset: ' . $offset);
         }
         return $this->get($offset);
     }

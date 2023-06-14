@@ -12,6 +12,7 @@ namespace Whise\Api\Tests\Response;
 use PHPUnit\Framework\TestCase;
 use Whise\Api\Response\ResponseData;
 use Whise\Api\Response\CollectionResponse;
+use InvalidArgumentException;
 
 class CollectionResponseTest extends TestCase
 {
@@ -52,6 +53,14 @@ class CollectionResponseTest extends TestCase
         $object = new CollectionResponse(self::$responseData);
 
         $this->assertEquals(3, $object[2]);
+    }
+
+    public function testOffsetGetError(): void
+    {
+        $object = new CollectionResponse(self::$responseData);
+
+        $this->expectException(InvalidArgumentException::class);
+        $invalid = $object[3];
     }
 
     public function testIterator(): void
