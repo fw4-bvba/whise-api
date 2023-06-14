@@ -318,6 +318,10 @@ class Request implements JsonSerializable
     #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
-        return $this->getBody();
+        $body = $this->getBody();
+        if (is_string($body)) {
+            $body = json_decode($body);
+        }
+        return $body;
     }
 }
