@@ -86,4 +86,11 @@ class RequestTest extends TestCase
             'headers' => ['baz' => 'quux'],
         ]);
     }
+
+    public function testJsonSerialize(): void
+    {
+        $body = ['foo' => 'bar'];
+        $request = new Request('GET', '', $body);
+        $this->assertEquals(json_encode($body), json_encode($request));
+    }
 }
