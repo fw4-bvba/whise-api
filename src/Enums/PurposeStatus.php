@@ -35,4 +35,6 @@ final class PurposeStatus extends Enum
     const EstimateForSale = 24;
     const EstimateForRent = 25;
     const EstimateLifeAnnuity = 26;
+    const PreparationRent = 27;
+    const PreparationLifeAnnuity = 28;
 }
