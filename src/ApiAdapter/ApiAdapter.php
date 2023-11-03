@@ -107,10 +107,7 @@ abstract class ApiAdapter
                         }
                     }
                 }
-                throw new Exception\InvalidRequestException(
-                    message: implode(' ', $messages) ?: 'Invalid request',
-                    validationCodes: $codes,
-                );
+                throw new Exception\InvalidRequestException(implode(' ', $messages) ?: 'Invalid request', $codes);
             }
             unset($response->isValidRequest);
         }
