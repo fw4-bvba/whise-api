@@ -45,6 +45,29 @@ class ApiAdapterTest extends ApiTestCase
         $response = self::$adapter->request($request);
     }
 
+    public function testInvalidRequestCodes(): void
+    {
+        $request = new Request('GET', '');
+
+        self::$adapter->queueResponse('{
+            "isValidRequest": false,
+            "validationErrors": [
+                {
+                    "message": "test",
+                    "code": "FailedAuthentication"
+                }
+            ]
+        }');
+
+        $codes = [];
+        try {
+            $response = self::$adapter->request($request);
+        } catch (InvalidRequestException $exception) {
+            $codes = $exception->getValidationCodes();
+        }
+        $this->assertEquals(['FailedAuthentication'], $codes);
+    }
+
     public function testValidationErrors(): void
     {
         $request = new Request('GET', '');
