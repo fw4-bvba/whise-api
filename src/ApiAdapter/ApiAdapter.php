@@ -96,14 +96,18 @@ abstract class ApiAdapter
         // Check if request was valid
         if (isset($response->isValidRequest) || !empty($response->validationErrors)) {
             if (empty($response->isValidRequest)) {
+                $messages = $codes = [];
                 if (!empty($response->validationErrors)) {
-                    $message = implode(' ', array_filter(array_map(function ($error) {
-                        return $error->message ?? '';
-                    }, $response->validationErrors)));
-                } else {
-                    $message = 'Invalid request';
+                    foreach ($response->validationErrors as $error) {
+                        if (!empty($error->message)) {
+                            $messages[] = $error->message;
+                        }
+                        if (!empty($error->code)) {
+                            $codes[] = $error->code;
+                        }
+                    }
                 }
-                throw new Exception\InvalidRequestException($message);
+                throw new Exception\InvalidRequestException(implode(' ', $messages) ?: 'Invalid request', $codes);
             }
             unset($response->isValidRequest);
         }
