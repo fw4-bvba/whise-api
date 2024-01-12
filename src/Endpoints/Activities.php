@@ -12,7 +12,7 @@ namespace Whise\Api\Endpoints;
 use Whise\Api\Endpoint;
 use Whise\Api\Request\CollectionRequest;
 use Whise\Api\Response\CollectionResponse;
-use Whise\Api\Response\CollectionResponseCountless;
+use Whise\Api\Response\CollectionResponsePaginated;
 
 final class Activities extends Endpoint
 {
@@ -43,7 +43,7 @@ final class Activities extends Endpoint
 
         $request = new CollectionRequest('POST', 'v1/activities/calendars', $parameters);
         $request->setResponseKey('activities')->requireAuthentication(true)->allowGreedyCache(true);
-        return new CollectionResponseCountless($request, $this->getApiAdapter());
+        return new CollectionResponsePaginated($request, $this->getApiAdapter());
     }
 
     /**
@@ -73,7 +73,7 @@ final class Activities extends Endpoint
 
         $request = new CollectionRequest('POST', 'v1/activities/histories', $parameters);
         $request->setResponseKey('activities')->requireAuthentication(true)->allowGreedyCache(true);
-        return new CollectionResponseCountless($request, $this->getApiAdapter());
+        return new CollectionResponsePaginated($request, $this->getApiAdapter());
     }
 
     /**
@@ -103,7 +103,7 @@ final class Activities extends Endpoint
 
         $request = new CollectionRequest('POST', 'v1/activities/audits', $parameters);
         $request->setResponseKey('activities')->requireAuthentication(true)->allowGreedyCache(true);
-        return new CollectionResponseCountless($request, $this->getApiAdapter());
+        return new CollectionResponsePaginated($request, $this->getApiAdapter());
     }
 
     /**
@@ -133,6 +133,6 @@ final class Activities extends Endpoint
 
         $request = new CollectionRequest('POST', 'v1/activities/historyexports', $parameters);
         $request->setResponseKey('activities')->requireAuthentication(true)->allowGreedyCache(true);
-        return new CollectionResponseCountless($request, $this->getApiAdapter());
+        return new CollectionResponsePaginated($request, $this->getApiAdapter());
     }
 }
