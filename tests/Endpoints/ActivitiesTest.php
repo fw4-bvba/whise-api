@@ -19,7 +19,8 @@ class ActivitiesTest extends ApiTestCase
         $endpoint = new Activities(self::$api);
 
         $this->queueResponse('{
-            "activities": [1, 2, 3]
+            "activities": [1, 2, 3],
+            "totalCount": 3
         }');
         $items = $endpoint->calendars();
 
@@ -31,7 +32,8 @@ class ActivitiesTest extends ApiTestCase
         $endpoint = new Activities(self::$api);
 
         $this->queueResponse('{
-            "activities": [1, 2, 3]
+            "activities": [1, 2, 3],
+            "totalCount": 3
         }');
         $items = $endpoint->histories();
 
@@ -43,7 +45,8 @@ class ActivitiesTest extends ApiTestCase
         $endpoint = new Activities(self::$api);
 
         $this->queueResponse('{
-            "activities": [1, 2, 3]
+            "activities": [1, 2, 3],
+            "totalCount": 3
         }');
         $items = $endpoint->audits();
 
@@ -55,7 +58,8 @@ class ActivitiesTest extends ApiTestCase
         $endpoint = new Activities(self::$api);
 
         $this->queueResponse('{
-            "activities": [1, 2, 3]
+            "activities": [1, 2, 3],
+            "totalCount": 3
         }');
         $items = $endpoint->historyExports();
 
