@@ -25,6 +25,9 @@ final class Estates extends Endpoint
     /** @var EstatesUsedCities */
     protected $usedCitiesEndpoint;
 
+    /** @var EstatesUsedCountries */
+    protected $usedCountriesEndpoint;
+
     /** @var EstatesPictures */
     protected $picturesEndpoint;
 
@@ -199,6 +202,19 @@ final class Estates extends Endpoint
             $this->usedCitiesEndpoint = new EstatesUsedCities($this->api);
         }
         return $this->usedCitiesEndpoint;
+    }
+
+    /**
+     * Access endpoints related to countries in use.
+     *
+     * @return EstatesUsedCountries
+     */
+    public function usedCountries(): EstatesUsedCountries
+    {
+        if (is_null($this->usedCountriesEndpoint)) {
+            $this->usedCountriesEndpoint = new EstatesUsedCountries($this->api);
+        }
+        return $this->usedCountriesEndpoint;
     }
 
     /**

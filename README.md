@@ -51,6 +51,7 @@ $api->estates()->list($filter, $sorting, $fields);
 $api->estates()->get($id, $filter, $fields);
 $api->estates()->regions()->list($parameters);
 $api->estates()->usedCities()->list($filter);
+$api->estates()->usedCountries()->list($filter);
 $api->estates()->exports()->list($office_id, $parameters);
 $api->estates()->exports()->changeStatus($estate_id, $export_status, $id_in_media, $export_message);
 $api->estates()->owned()->list($username, $password, $filter, $sorting, $fields);
