@@ -28,10 +28,7 @@ final class Contacts extends Endpoint
     protected $typesEndpoint;
 
     /**
-     * Request a list of contacts.
-     *
-     * @link http://api.whise.eu/SystemIntegrator.html#operation/Contacts_GetContacts
-     * Official documentation
+     * @internal
      *
      * @param array $filter Associative array containing filter parameters
      * @param array $sort Associative array containing sorting parameters
@@ -89,12 +86,7 @@ final class Contacts extends Endpoint
     }
 
     /**
-     * Update, create or remove attributes/subdetails for a given contact ID.
-     * To remove the value of an attribute you need to add the attribute in the
-     * call and give it the value `null`.
-     *
-     * @link http://api.whise.eu/SystemIntegrator.html#operation/Contacts_UpdateContact
-     * Official documentation
+     * @internal
      *
      * @param array $parameters Associative array containing request parameters
      *
@@ -116,10 +108,7 @@ final class Contacts extends Endpoint
     }
 
     /**
-     * Create a contact.
-     *
-     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Contacts_CreateContact
-     * Official documentation
+     * @internal
      *
      * @param array $parameters Associative array containing request parameters
      *
@@ -142,11 +131,7 @@ final class Contacts extends Endpoint
 
 
     /**
-     * Create or update a contact. When a contact already exists with the same
-     * PrivateEmail value, the API will update the existing contact instead.
-     *
-     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Contacts_UpsertContact
-     * Official documentation
+     * @internal
      *
      * @param array $parameters Associative array containing request parameters
      *
@@ -169,10 +154,7 @@ final class Contacts extends Endpoint
 
 
     /**
-     * Delete one or more contacts within a list of ID's.
-     *
-     * @link http://api.whise.eu/SystemIntegrator.html#operation/Contacts_DeleteContact
-     * Official documentation
+     * @internal
      *
      * @param int|array $parameters Associative array containing request
      * parameters, or an array containing contact ID's, or a single contact ID

@@ -21,7 +21,7 @@ final class AdminClients extends Endpoint
     /**
      * Request a list of activated clients.
      *
-     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Admin_GetClients
+     * @link https://api.whise.eu/WebsiteDesigner.html#tag/Administration/operation/Admin_GetClients
      * Official documentation
      *
      * @param array $parameters Associative array containing request parameters
@@ -44,7 +44,7 @@ final class AdminClients extends Endpoint
     /**
      * Request the settings defined by the client.
      *
-     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Admin_GetClientSetting
+     * @link https://api.whise.eu/WebsiteDesigner.html#tag/Administration/operation/Admin_GetClientSetting
      * Official documentation
      *
      * @param int|array $parameters Associative array containing request
@@ -74,7 +74,7 @@ final class AdminClients extends Endpoint
      * Request a JWT token for a client. The OfficeId field is required to
      * select an activated office of that client.
      *
-     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Admin_GetClientToken
+     * @link https://api.whise.eu/WebsiteDesigner.html#tag/Administration/operation/Admin_GetClientToken
      * Official documentation
      *
      * @param array $parameters Associative array containing request parameters

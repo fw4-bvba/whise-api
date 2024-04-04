@@ -19,7 +19,7 @@ final class ContactsTitles extends Endpoint
     /**
      * Request a list of contact titles.
      *
-     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Contacts_GetContactTitles
+     * @link https://api.whise.eu/WebsiteDesigner.html#tag/Contacts/operation/Contacts_GetContactTitles
      * Official documentation
      *
      * @param array $parameters Associative array containing request parameters

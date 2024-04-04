@@ -18,7 +18,7 @@ final class EstatesUsedCities extends Endpoint
     /**
      * Request a list of cities in use.
      *
-     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Estates_GetUsedCities
+     * @link https://api.whise.eu/WebsiteDesigner.html#tag/Estates/operation/Estates_GetUsedCities
      * Official documentation
      *
      * @param array $estate_filter Associative array containing estate filter

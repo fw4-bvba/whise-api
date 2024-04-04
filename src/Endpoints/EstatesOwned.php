@@ -19,7 +19,7 @@ final class EstatesOwned extends Endpoint
     /**
      * Get the list of estates owned by a contact.
      *
-     * @link http://api.whise.eu/WebsiteMedia.html#operation/Estates_GetOwnedEstates
+     * @link https://api.whise.eu/WebsiteDesigner.html#tag/Estates/operation/Estates_GetOwnedEstates
      * Official documentation
      *
      * @param string $contact_username Username of the contact
