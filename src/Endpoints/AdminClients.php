@@ -71,6 +71,30 @@ final class AdminClients extends Endpoint
     }
 
     /**
+     * Update settings of the client according to the data that you fill in the
+     * request.
+     *
+     * @link https://api.whise.eu/WebsiteDesigner.html#tag/Administration/operation/Admin_UpdateClientSetting
+     * Official documentation
+     *
+     * @param array $parameters Associative array containing request parameters
+     *
+     * @throws Exception\InvalidRequestException if the API rejects the request
+     * due to invalid input
+     * @throws Exception\AuthException if access is denied
+     * @throws Exception\AuthException if access token is missing or invalid
+     * @throws Exception\ApiException if a server-side error occurred
+     *
+     * @return Response
+     */
+    public function updateSettings(array $parameters): Response
+    {
+        $request = new Request('PATCH', 'v1/admin/clients/settings/update', $parameters);
+        $request->setResponseKey('settings')->requireAuthentication(true)->allowGreedyCache(true);
+        return new Response($this->getApiAdapter()->request($request));
+    }
+
+    /**
      * Request a JWT token for a client. The OfficeId field is required to
      * select an activated office of that client.
      *

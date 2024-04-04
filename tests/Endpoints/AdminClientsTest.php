@@ -39,6 +39,18 @@ class AdminClientsTest extends ApiTestCase
         $this->assertEquals('bar', $response->foo);
     }
 
+    public function testUpdateSettings(): void
+    {
+        $endpoint = new AdminClients(self::$api);
+
+        $this->queueResponse('{
+            "settings": {"foo": "bar"}
+        }');
+        $response = $endpoint->updateSettings([]);
+
+        $this->assertEquals('bar', $response->foo);
+    }
+
     public function testToken(): void
     {
         $endpoint = new AdminClients(self::$api);

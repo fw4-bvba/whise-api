@@ -38,6 +38,7 @@ Use the following methods to access available endpoints:
 ```php
 $api->admin()->clients()->list($parameters);
 $api->admin()->clients()->settings($parameters);
+$api->admin()->clients()->updateSettings($parameters);
 $api->admin()->clients()->token($parameters);
 $api->admin()->offices()->list($parameters);
 $api->admin()->representatives()->list($parameters);
