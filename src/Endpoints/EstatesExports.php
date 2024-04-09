@@ -20,7 +20,7 @@ final class EstatesExports extends Endpoint
     /**
      * Request a list of estates to be exported.
      *
-     * @link http://api.whise.eu/WebsiteMedia.html#operation/Estates_GetEstatesToBeExportedToMedia
+     * @link https://api.whise.eu/WebsiteMedia.html#tag/Estates/operation/Estates_GetEstatesToBeExportedToMedia
      * Official documentation
      *
      * @param int $office_id ID of the office of which to retrieve estates
@@ -68,7 +68,7 @@ final class EstatesExports extends Endpoint
      * Confirm the publication of an estate. Call this endpoint whenever an
      * estate is published, or when an error occurs.
      *
-     * @link http://api.whise.eu/WebsiteMedia.html#operation/Estates_UpdateEstateExportStatus
+     * @link https://api.whise.eu/WebsiteMedia.html#tag/Estates/operation/Estates_UpdateEstateExportStatus
      * Official documentation
      *
      * @param int $estate_id

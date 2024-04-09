@@ -19,7 +19,7 @@ final class Activities extends Endpoint
     /**
      * Request a list of calendar-type activities.
      *
-     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Activity_GetCalendars
+     * @link https://api.whise.eu/WebsiteDesigner.html#tag/Activity/operation/Activity_GetCalendars
      * Official documentation
      *
      * @param array $filter Associative array containing filter parameters
@@ -49,7 +49,7 @@ final class Activities extends Endpoint
     /**
      * Request a list of history-type activities.
      *
-     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Activity_GetHistories
+     * @link https://api.whise.eu/WebsiteDesigner.html#tag/Activity/operation/Activity_GetHistories
      * Official documentation
      *
      * @param array $filter Associative array containing filter parameters
@@ -79,7 +79,7 @@ final class Activities extends Endpoint
     /**
      * Request a list of data-audit-type activities.
      *
-     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Activity_GetDataChanges
+     * @link https://api.whise.eu/WebsiteDesigner.html#tag/Activity/operation/Activity_GetDataChanges
      * Official documentation
      *
      * @param array $filter Associative array containing filter parameters
@@ -109,7 +109,7 @@ final class Activities extends Endpoint
     /**
      * Request a list of history-export-type activities.
      *
-     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Activity_GetHistoryExport
+     * @link https://api.whise.eu/WebsiteDesigner.html#tag/Activity/operation/Activity_GetHistoryExport
      * Official documentation
      *
      * @param array $filter Associative array containing filter parameters

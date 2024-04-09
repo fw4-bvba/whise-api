@@ -19,7 +19,7 @@ final class AdminOffices extends Endpoint
     /**
      * Request a list of activated offices.
      *
-     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Admin_GetOffices
+     * @link https://api.whise.eu/WebsiteDesigner.html#tag/Administration/operation/Admin_GetOffices
      * Official documentation
      *
      * @param array $parameters Associative array containing request parameters

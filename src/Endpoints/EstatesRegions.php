@@ -19,7 +19,7 @@ final class EstatesRegions extends Endpoint
     /**
      * Request a list of regions.
      *
-     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Estates_GetRegions
+     * @link https://api.whise.eu/WebsiteDesigner.html#tag/Estates/operation/Estates_GetRegions
      * Official documentation
      *
      * @param array $parameters Associative array containing request parameters

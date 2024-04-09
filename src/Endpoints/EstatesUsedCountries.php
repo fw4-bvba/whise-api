@@ -13,12 +13,12 @@ use Whise\Api\Endpoint;
 use Whise\Api\Request\CollectionRequest;
 use Whise\Api\Response\CollectionResponse;
 
-final class EstatesUsedCities extends Endpoint
+final class EstatesUsedCountries extends Endpoint
 {
     /**
-     * Request a list of cities in use.
+     * Request a list of countries in use.
      *
-     * @link https://api.whise.eu/WebsiteDesigner.html#tag/Estates/operation/Estates_GetUsedCities
+     * @link https://api.whise.eu/WebsiteDesigner.html#tag/Estates/operation/Estates_GetUsedCountries
      * Official documentation
      *
      * @param array $estate_filter Associative array containing estate filter
@@ -38,8 +38,8 @@ final class EstatesUsedCities extends Endpoint
             'EstateFilter' => $estate_filter,
         ]);
 
-        $request = new CollectionRequest('POST', 'v1/estates/usedcities/list', $parameters);
-        $request->setResponseKey('cities')->requireAuthentication(true)->allowGreedyCache(true);
+        $request = new CollectionRequest('POST', 'v1/estates/usedcountries/list', $parameters);
+        $request->setResponseKey('countries')->requireAuthentication(true)->allowGreedyCache(true);
         return new CollectionResponse($this->getApiAdapter()->request($request));
     }
 }

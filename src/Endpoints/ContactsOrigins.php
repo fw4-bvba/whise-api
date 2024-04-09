@@ -19,7 +19,7 @@ final class ContactsOrigins extends Endpoint
     /**
      * Request a list of contact origins.
      *
-     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Contacts_GetContactOrigins
+     * @link https://api.whise.eu/WebsiteDesigner.html#tag/Contacts/operation/Contacts_GetContactOrigins
      * Official documentation
      *
      * @param array $parameters Associative array containing request parameters

@@ -18,10 +18,7 @@ use Whise\Api\Response\CollectionResponse;
 final class EstatesDocuments extends Endpoint
 {
     /**
-     * Upload one or more documents for an estate.
-     *
-     * @link http://api.whise.eu/SystemIntegrator.html#operation/Estates_UploadDocuments
-     * Official documentation
+     * @internal
      *
      * @see Whise\Api\File for how to handle file data
      *
@@ -70,10 +67,7 @@ final class EstatesDocuments extends Endpoint
     }
 
     /**
-     * Delete one or more documents.
-     *
-     * @link http://api.whise.eu/SystemIntegrator.html#operation/Estates_DeleteDocuments
-     * Official documentation
+     * @internal
      *
      * @param int $estate_id ID of the estate from which to delete documents
      * @param int|array $document_ids Array of document ID's, or a single

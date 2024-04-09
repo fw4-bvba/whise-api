@@ -38,6 +38,7 @@ Use the following methods to access available endpoints:
 ```php
 $api->admin()->clients()->list($parameters);
 $api->admin()->clients()->settings($parameters);
+$api->admin()->clients()->updateSettings($parameters);
 $api->admin()->clients()->token($parameters);
 $api->admin()->offices()->list($parameters);
 $api->admin()->representatives()->list($parameters);
@@ -48,15 +49,9 @@ $api->admin()->representatives()->list($parameters);
 ```php
 $api->estates()->list($filter, $sorting, $fields);
 $api->estates()->get($id, $filter, $fields);
-$api->estates()->update($parameters);
-$api->estates()->create($parameters);
-$api->estates()->delete($id);
 $api->estates()->regions()->list($parameters);
 $api->estates()->usedCities()->list($filter);
-$api->estates()->pictures()->upload($estate_id, $file);
-$api->estates()->pictures()->delete($estate_id, $picture_id);
-$api->estates()->documents()->upload($estate_id, $file);
-$api->estates()->documents()->delete($estate_id, $document_id);
+$api->estates()->usedCountries()->list($filter);
 $api->estates()->exports()->list($office_id, $parameters);
 $api->estates()->exports()->changeStatus($estate_id, $export_status, $id_in_media, $export_message);
 $api->estates()->owned()->list($username, $password, $filter, $sorting, $fields);
@@ -65,12 +60,7 @@ $api->estates()->owned()->list($username, $password, $filter, $sorting, $fields)
 #### Contacts
 
 ```php
-$api->contacts()->list($filter, $sorting, $fields);
-$api->contacts()->get($id, $filter, $fields);
-$api->contacts()->update($parameters);
-$api->contacts()->create($parameters);
 $api->contacts()->upsert($parameters);
-$api->contacts()->delete($id);
 $api->contacts()->origins()->list($parameters);
 $api->contacts()->titles()->list($parameters);
 $api->contacts()->types()->list($parameters);
