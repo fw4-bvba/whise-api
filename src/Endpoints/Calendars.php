@@ -24,7 +24,7 @@ final class Calendars extends Endpoint
     /**
      * Request a list of calendar events.
      *
-     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Calendars_GetCalendars
+     * @link https://api.whise.eu/WebsiteDesigner.html#tag/Calendars/operation/Calendars_GetCalendars
      * Official documentation
      *
      * @param array $filter Associative array containing filter parameters
@@ -74,10 +74,7 @@ final class Calendars extends Endpoint
     }
 
     /**
-     * Create a calendar event.
-     *
-     * @link http://api.whise.eu/SystemIntegrator.html#operation/Calendars_CreateCalendar
-     * Official documentation
+     * @internal
      *
      * @param array $parameters Associative array containing request parameters
      *
@@ -99,7 +96,7 @@ final class Calendars extends Endpoint
     /**
      * Delete a calendar event.
      *
-     * @link http://api.whise.eu/SystemIntegrator.html#operation/Calendars_DeleteCalendar
+     * @link https://api.whise.eu/WebsiteDesigner.html#tag/Calendars/operation/Calendars_DeleteCalendar
      * Official documentation
      *
      * @param int|array $parameters Associative array containing request
@@ -135,7 +132,7 @@ final class Calendars extends Endpoint
     /**
      * Add a contact to an event.
      *
-     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Calendars_UpdateCalendar
+     * @link https://api.whise.eu/WebsiteDesigner.html#tag/Calendars/operation/Calendars_UpdateCalendar
      * Official documentation
      *
      * @param array $parameters Associative array containing request parameters
@@ -158,7 +155,7 @@ final class Calendars extends Endpoint
     /**
      * Create a new appointment or insert new contacts into an existing one.
      *
-     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Calendars_UpsertCalendar
+     * @link https://api.whise.eu/WebsiteDesigner.html#tag/Calendars/operation/Calendars_UpsertCalendar
      * Official documentation
      *
      * @param array $parameters Associative array containing request parameters

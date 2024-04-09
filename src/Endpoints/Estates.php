@@ -25,6 +25,9 @@ final class Estates extends Endpoint
     /** @var EstatesUsedCities */
     protected $usedCitiesEndpoint;
 
+    /** @var EstatesUsedCountries */
+    protected $usedCountriesEndpoint;
+
     /** @var EstatesPictures */
     protected $picturesEndpoint;
 
@@ -43,7 +46,7 @@ final class Estates extends Endpoint
     /**
      * Request a list of real estate properties and/or projects.
      *
-     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Estates_GetEstates
+     * @link https://api.whise.eu/WebsiteDesigner.html#tag/Estates/operation/Estates_GetEstates
      * Official documentation
      *
      * @param array $filter Associative array containing filter parameters
@@ -111,15 +114,6 @@ final class Estates extends Endpoint
     }
 
     /**
-     * Update, create or remove attributes/subdetails for a given estate ID.
-     * To remove the value of an attribute you need to add the attribute in the
-     * call and give it the value `null`. This is valid for both integer/string.
-     * To remove the value of a subdetail you need to add the attribute
-     * `"remove" => true` to the call.
-     *
-     * @link http://api.whise.eu/SystemIntegrator.html#operation/Estates_UpdateEstate
-     * Official documentation
-     *
      * @param array $parameters Associative array containing request parameters
      *
      * @throws Exception\InvalidRequestException if the API rejects the request
@@ -138,10 +132,7 @@ final class Estates extends Endpoint
     }
 
     /**
-     * Create a new real estate property or project.
-     *
-     * @link http://api.whise.eu/SystemIntegrator.html#operation/Estates_CreateEstate
-     * Official documentation
+     * @internal
      *
      * @param array $parameters Associative array containing request parameters
      *
@@ -162,10 +153,7 @@ final class Estates extends Endpoint
 
 
     /**
-     * Delete a single real estate property or project.
-     *
-     * @link http://api.whise.eu/SystemIntegrator.html#operation/Estates_DeleteEstate
-     * Official documentation
+     * @internal
      *
      * @param int|array $parameters Associative array containing request
      * parameters, or a single estate ID
@@ -214,6 +202,19 @@ final class Estates extends Endpoint
             $this->usedCitiesEndpoint = new EstatesUsedCities($this->api);
         }
         return $this->usedCitiesEndpoint;
+    }
+
+    /**
+     * Access endpoints related to countries in use.
+     *
+     * @return EstatesUsedCountries
+     */
+    public function usedCountries(): EstatesUsedCountries
+    {
+        if (is_null($this->usedCountriesEndpoint)) {
+            $this->usedCountriesEndpoint = new EstatesUsedCountries($this->api);
+        }
+        return $this->usedCountriesEndpoint;
     }
 
     /**

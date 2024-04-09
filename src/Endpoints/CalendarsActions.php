@@ -19,7 +19,7 @@ final class CalendarsActions extends Endpoint
     /**
      * Request a list of calendar event types.
      *
-     * @link http://api.whise.eu/WebsiteDesigner.html#operation/Calendars_GetCalendarActions
+     * @link https://api.whise.eu/WebsiteDesigner.html#tag/Calendars/operation/Calendars_GetCalendarActions
      * Official documentation
      *
      * @param array $parameters Associative array containing request parameters

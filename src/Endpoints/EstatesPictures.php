@@ -18,10 +18,7 @@ use Whise\Api\Response\CollectionResponse;
 final class EstatesPictures extends Endpoint
 {
     /**
-     * Upload one or more photos for an estate.
-     *
-     * @link http://api.whise.eu/SystemIntegrator.html#operation/Estates_UploadPictures
-     * Official documentation
+     * @internal
      *
      * @see Whise\Api\File for how to handle file data
      *
@@ -70,10 +67,7 @@ final class EstatesPictures extends Endpoint
     }
 
     /**
-     * Delete one or more photos.
-     *
-     * @link http://api.whise.eu/SystemIntegrator.html#operation/Estates_DeletePictures
-     * Official documentation
+     * @internal
      *
      * @param int $estate_id ID of the estate from which to delete photos
      * @param int|array $photo_ids Array of photo ID's, or a single photo ID

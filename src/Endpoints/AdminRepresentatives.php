@@ -17,10 +17,7 @@ use Whise\Api\Response\CollectionResponsePaginated;
 final class AdminRepresentatives extends Endpoint
 {
     /**
-     * Request a list of representatives.
-     *
-     * @link http://api.whise.eu/SystemIntegrator.html#operation/Admin_GetRepresentatives
-     * Official documentation
+     * @internal
      *
      * @param array $parameters Associative array containing request parameters
      *
