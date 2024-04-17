@@ -15,34 +15,34 @@ use InvalidArgumentException;
 
 class CollectionRequestTest extends TestCase
 {
-	public function testSetPage(): void
-	{
-		$request = new CollectionRequest('POST', '', []);
-		$request->setPage(1);
+    public function testSetPage(): void
+    {
+        $request = new CollectionRequest('POST', '', []);
+        $request->setPage(1);
 
-		$body = json_decode($request->getBody(), true);
+        $body = json_decode($request->getBody(), true);
 
-		$this->assertEquals([
-								'Page' => [
-									'Limit' => $request->getPageSize(),
-									'Offset' => $request->getPage(),
-								],
-							], $body);
-	}
+        $this->assertEquals([
+                                'Page' => [
+                                    'Limit' => $request->getPageSize(),
+                                    'Offset' => $request->getPage(),
+                                ],
+                            ], $body);
+    }
 
-	public function testSetPageInvalid(): void
-	{
-		$request = new CollectionRequest('POST', '', []);
+    public function testSetPageInvalid(): void
+    {
+        $request = new CollectionRequest('POST', '', []);
 
-		$this->expectException(InvalidArgumentException::class);
-		$request->setPage(-1);
-	}
+        $this->expectException(InvalidArgumentException::class);
+        $request->setPage(-1);
+    }
 
-	public function testSetPageSizeInvalid(): void
-	{
-		$request = new CollectionRequest('POST', '', []);
+    public function testSetPageSizeInvalid(): void
+    {
+        $request = new CollectionRequest('POST', '', []);
 
-		$this->expectException(InvalidArgumentException::class);
-		$request->setPageSize(0);
-	}
+        $this->expectException(InvalidArgumentException::class);
+        $request->setPageSize(0);
+    }
 }
