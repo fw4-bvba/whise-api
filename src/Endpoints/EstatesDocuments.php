@@ -15,7 +15,7 @@ use Whise\Api\Request\Request;
 use Whise\Api\Response\Response;
 use Whise\Api\Response\CollectionResponse;
 
-final class EstatesDocuments extends Endpoint
+class EstatesDocuments extends Endpoint
 {
     /**
      * @internal

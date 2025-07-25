@@ -14,7 +14,7 @@ use Whise\Api\Request\CollectionRequest;
 use Whise\Api\Response\CollectionResponse;
 use Whise\Api\Response\CollectionResponsePaginated;
 
-final class ContactsTitles extends Endpoint
+class ContactsTitles extends Endpoint
 {
     /**
      * Request a list of contact titles.

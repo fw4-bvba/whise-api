@@ -16,7 +16,7 @@ use Whise\Api\Request\Request;
 use InvalidArgumentException;
 use Psr\Cache\CacheItemPoolInterface;
 
-final class WhiseApi
+class WhiseApi
 {
     /** @var ApiAdapter */
     private $apiAdapter;

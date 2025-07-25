@@ -16,7 +16,7 @@ use Whise\Api\Response\Response;
 use Whise\Api\Response\CollectionResponse;
 use Whise\Api\Response\CollectionResponsePaginated;
 
-final class Calendars extends Endpoint
+class Calendars extends Endpoint
 {
     /** @var CalendarsActions */
     protected $actionsEndpoint;

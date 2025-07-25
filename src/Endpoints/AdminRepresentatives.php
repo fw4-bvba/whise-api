@@ -14,7 +14,7 @@ use Whise\Api\Request\CollectionRequest;
 use Whise\Api\Response\CollectionResponse;
 use Whise\Api\Response\CollectionResponsePaginated;
 
-final class AdminRepresentatives extends Endpoint
+class AdminRepresentatives extends Endpoint
 {
     /**
      * @internal

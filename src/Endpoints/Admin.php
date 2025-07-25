@@ -11,7 +11,7 @@ namespace Whise\Api\Endpoints;
 
 use Whise\Api\Endpoint;
 
-final class Admin extends Endpoint
+class Admin extends Endpoint
 {
     /** @var AdminClients */
     protected $clientsEndpoint;

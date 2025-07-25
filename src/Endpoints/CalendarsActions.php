@@ -14,7 +14,7 @@ use Whise\Api\Request\CollectionRequest;
 use Whise\Api\Response\CollectionResponse;
 use Whise\Api\Response\CollectionResponsePaginated;
 
-final class CalendarsActions extends Endpoint
+class CalendarsActions extends Endpoint
 {
     /**
      * Request a list of calendar event types.

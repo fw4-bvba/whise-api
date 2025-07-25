@@ -15,7 +15,7 @@ use Whise\Api\Request\CollectionRequest;
 use Whise\Api\Response\CollectionResponse;
 use Whise\Api\Response\CollectionResponsePaginated;
 
-final class EstatesExports extends Endpoint
+class EstatesExports extends Endpoint
 {
     /**
      * Request a list of estates to be exported.

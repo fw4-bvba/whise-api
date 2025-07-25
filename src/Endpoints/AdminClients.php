@@ -16,7 +16,7 @@ use Whise\Api\Response\Response;
 use Whise\Api\Response\CollectionResponse;
 use Whise\Api\Response\CollectionResponsePaginated;
 
-final class AdminClients extends Endpoint
+class AdminClients extends Endpoint
 {
     /**
      * Request a list of activated clients.

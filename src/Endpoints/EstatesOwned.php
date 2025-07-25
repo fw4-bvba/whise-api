@@ -14,7 +14,7 @@ use Whise\Api\Request\CollectionRequest;
 use Whise\Api\Response\CollectionResponse;
 use Whise\Api\Response\CollectionResponsePaginated;
 
-final class EstatesOwned extends Endpoint
+class EstatesOwned extends Endpoint
 {
     /**
      * Get the list of estates owned by a contact.
