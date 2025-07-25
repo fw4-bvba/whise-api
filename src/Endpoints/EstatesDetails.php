@@ -13,7 +13,7 @@ use Whise\Api\Endpoint;
 use Whise\Api\Request\CollectionRequest;
 use Whise\Api\Response\Response;
 
-final class EstatesDetails extends Endpoint
+class EstatesDetails extends Endpoint
 {
     /**
      * Request a list of sub-details available to the client.

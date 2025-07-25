@@ -16,7 +16,7 @@ use Whise\Api\Response\Response;
 use Whise\Api\Response\CollectionResponse;
 use Whise\Api\Response\CollectionResponsePaginated;
 
-final class Contacts extends Endpoint
+class Contacts extends Endpoint
 {
     /** @var ContactsOrigins */
     protected $originsEndpoint;

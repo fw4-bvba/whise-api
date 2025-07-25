@@ -14,7 +14,7 @@ use Whise\Api\Request\CollectionRequest;
 use Whise\Api\Response\CollectionResponse;
 use Whise\Api\Response\CollectionResponsePaginated;
 
-final class EstatesRegions extends Endpoint
+class EstatesRegions extends Endpoint
 {
     /**
      * Request a list of regions.

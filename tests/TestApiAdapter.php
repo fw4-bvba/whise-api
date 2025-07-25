@@ -12,7 +12,7 @@ namespace Whise\Api\Tests;
 use Whise\Api\ApiAdapter\ApiAdapter;
 use Whise\Api\Request\Request;
 
-final class TestApiAdapter extends ApiAdapter
+class TestApiAdapter extends ApiAdapter
 {
     /** @var array */
     protected $responseQueue = [];
