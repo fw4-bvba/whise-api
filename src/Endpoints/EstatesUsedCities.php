@@ -13,7 +13,7 @@ use Whise\Api\Endpoint;
 use Whise\Api\Request\CollectionRequest;
 use Whise\Api\Response\CollectionResponse;
 
-final class EstatesUsedCities extends Endpoint
+class EstatesUsedCities extends Endpoint
 {
     /**
      * Request a list of cities in use.

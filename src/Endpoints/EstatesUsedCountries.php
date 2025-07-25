@@ -13,7 +13,7 @@ use Whise\Api\Endpoint;
 use Whise\Api\Request\CollectionRequest;
 use Whise\Api\Response\CollectionResponse;
 
-final class EstatesUsedCountries extends Endpoint
+class EstatesUsedCountries extends Endpoint
 {
     /**
      * Request a list of countries in use.

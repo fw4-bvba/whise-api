@@ -19,7 +19,7 @@ use PackageVersions\Versions;
 /**
  * @codeCoverageIgnore
  */
-final class HttpApiAdapter extends ApiAdapter
+class HttpApiAdapter extends ApiAdapter
 {
     private const BASE_URI = 'https://api.whise.eu/';
 

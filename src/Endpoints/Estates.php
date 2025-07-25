@@ -17,7 +17,7 @@ use Whise\Api\Response\Response;
 use Whise\Api\Response\CollectionResponse;
 use Whise\Api\Response\CollectionResponsePaginated;
 
-final class Estates extends Endpoint
+class Estates extends Endpoint
 {
     /** @var EstatesRegions */
     protected $regionsEndpoint;

@@ -14,7 +14,7 @@ use Whise\Api\Request\CollectionRequest;
 use Whise\Api\Response\CollectionResponse;
 use Whise\Api\Response\CollectionResponsePaginated;
 
-final class ContactsTypes extends Endpoint
+class ContactsTypes extends Endpoint
 {
     /**
      * Request a list of contact types.
