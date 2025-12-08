@@ -5,7 +5,7 @@
     "keywords": ["whise", "api", "sdk"],
     "license": "MIT",
     "require": {
-        "php": "^7.4|^8.0|^8.1",
+        "php": "^7.4 | ^8.0",
         "guzzlehttp/guzzle": "~6.0|~7.0",
         "ocramius/package-versions": "^2.1"
     },
