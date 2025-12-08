@@ -20,7 +20,7 @@ class InvalidRequestException extends \Exception
         string $message = '',
         array $validationCodes = [],
         int $code = 0,
-        Throwable $previous = null
+        ?Throwable $previous = null
     ) {
         parent::__construct($message, $code, $previous);
 
